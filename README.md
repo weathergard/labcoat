@@ -132,16 +132,16 @@ Use the `<example>` element to get automatically-numbered example cases, and use
 * If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to the enclosing article element, as follows: `<article alpha-example>`.
 * If you want numbering to restart for each `<section>`, add the `examples-by-section` attribute.
 
-## &lt;figure> + &lt;figcaption> and &lt;fig />
-The HTML5-native `<figure>` and `<figcaption>` elements will be automatically labeled, numbered, and ID'ed. You can use labcoat's self-closing `<fig />` element to create an in-text reference to a figure, using an attribute to identify the figure.
+## &lt;ffigure> + &lt;ffigcaption> and &lt;ffig />
+`<ffigure>` and `<ffigcaption>` elements will be automatically labeled, numbered, and ID'ed. You can use labcoat's self-closing `<fig />` element to create an in-text reference to a figure, using an attribute to identify the figure.
 
 ```html
 <article>
-  <figure taj-mahal>
+  <ffigure taj-mahal>
     <img src="taj-mahal.jpg">
-    <figcaption>the caption</figcpation>
-  </figure>
-  <p>And here we see <fig taj-mahal />.</p>
+    <ffigcaption>the caption</ffigcpation>
+  </ffigure>
+  <p>And here we see <ffig taj-mahal />.</p>
 </article>
 ```
 
