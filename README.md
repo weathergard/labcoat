@@ -83,3 +83,25 @@ The `<citation>` and the companion `<bibliography />` elements allow the creatio
 ## &lt;index />
 Use the self-closing `<index />` element to generate a linked table of contents, which references each of your `<section>` elements, using the text content of the first `<h1>` or `<h2>` within.
 
+## &lt;example> and &lt;ex />
+Use the `<example>` to have automatically-numbered example cases.
+
+```html
+<article>
+  <example id="ecp-violation">
+    John is illegal to park here.
+  </example>
+  <p>Body text referencing example no. <ex src="ecp-violation" />.</p>
+</article>
+```
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
+
+```html
+<article>
+  <div class="example" id="ecp-violation">
+    <span class="example-number">1</span> John is illegal to park here.
+  </div>
+  <p>Body text referencing example no. <a href="#ecp-violation">1</a>.</p>
+</article>
+```
