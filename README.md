@@ -1,22 +1,38 @@
 # Labcoat
 Enhance your HTML with scholarly bibliographic and annotation features, entirely on the server-side.
 
-## Use it as:
-* a command line pipe
-* a node.js include
+## Use it anywhere.
+Labcoat is a pure function&#8212;provide it with input markup text, and it will map it to the output. It's idempotent, and it's fast. That means you can:
+
+* Pipe material into it on command line: `$ html | labcoat > file.html`
+
+* Compile-on-the-fly in Node.js or Express: `res.end(labcoat(html))`
+
+* Apply it to documents in the browser: 
+
+    ```html
+    ...
+    <script>
+      let html = document.body.innerHTML
+      document.body.innerHTML = labcoat(html)
+    </script>
+    </body>
+    ```
+
+<hr>
 
 ## Start with &lt;article>
 Labcoat takes the standard HTML5 `<article>` element as its domain. That is, only material within an `<article>` will be transpiled from labcoat markup to HTML.
 
-## &lt;footnote> and &lt;notes />
-Use the `<footnote>` element to get reciprocally-linked foot notes. Use the companion self-closing `<footnotes />` element to indicate where you want the notes to appear in the transpiled HTML.
+## &lt;endnote> and &lt;endnotes />
+Use the `<endnote>` element to get reciprocally-linked end notes. Use the companion self-closing `<endnotes />` element to indicate where you want the notes to appear in the transpiled HTML.
 
 ```html
 <article>
-  <p>Body text.<footnote>a note</footnote></p>
+  <p>Body text.<endnote>a note</endnote></p>
   <p>More body text.</p>
   ...
-  <notes />
+  <endnotes />
 </article>
 ```
 #### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
@@ -26,8 +42,8 @@ Use the `<footnote>` element to get reciprocally-linked foot notes. Use the comp
   <p>Body text.<sup id="intext-note-1"><a href="#note-1">1</a></sup></p>
   <p>More body text.</p>
   ...
-  <footer class="footnotes">
-    <ol>
+  <footer class="notes">
+    <ol class="notes">
       <li id="note-1"><a href="#intext-note-1">a note</a></li>
     </ol>
   </footer>
@@ -35,7 +51,7 @@ Use the `<footnote>` element to get reciprocally-linked foot notes. Use the comp
 ```
 
 #### Numbering style
-If you prefer alphabetical numbering for your footnotes (i, ii, or I, II, etc.), add the `alpha-footnotes` attribute to your enclosing article element, as follows: `<article alpha-footnotes>`. You'll need to use CSS to style your `<ol>` numbering style to match. 
+If you prefer alphabetical numbering for your end notes, add the `alpha` attribute as follows: `<endnotes alpha />`. Then set the `list-style` CSS property on `ol.notes` to match.
 
 ## &lt;citation /> and &lt;bibliography />
 The `<citation>` and the companion `<bibliography />` elements allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an external store of bibliographic data. Provide a file path or URL to a JSON file (format given below) as attribute.
@@ -112,5 +128,11 @@ Use the `<example>` element to get automatically-numbered example cases, and use
   <p>Here we have example (<a href="#ecp-violation">1</a>).</p>
 </article>
 ```
-#### Numbering style
-If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to your enclosing article element, as follows: `<article alpha-example>`.
+#### Numbering style options
+* If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to the enclosing article element, as follows: `<article alpha-example>`.
+* If you want numbering to restart for each `<section>`, add the `examples-by-section` attribute.
+
+<hr>
+
+#### Performance goal
+2,000-word paper, with 10 numbered examples, 10 footnotes, and 10 citations: <10ms
