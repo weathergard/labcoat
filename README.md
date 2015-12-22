@@ -26,24 +26,26 @@ Use the `<footnote>` element to get reciprocally-linked foot notes. Use the comp
   <p>Body text.<sup id="intext-note-1"><a href="#note-1">1</a></sup></p>
   <p>More body text.</p>
   ...
-  <footer>
+  <footer class="footnotes">
     <ol>
       <li id="note-1"><a href="#intext-note-1">a note</a></li>
     </ol>
   </footer>
 </article>
-
 ```
 
-## &lt;citation> and &lt;bibliography />
+#### Numbering style
+If you prefer alphabetical numbering for your footnotes (i, ii, or I, II, etc.), add the `alpha-footnotes` attribute to your enclosing article element, as follows: `<article alpha-footnotes>`. You'll need to use CSS to style your `<ol>` numbering style to match. 
+
+## &lt;citation /> and &lt;bibliography />
 The `<citation>` and the companion `<bibliography />` elements allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an external store of bibliographic data. This store can be .json file stored on your server or a URL pointing to a .json file.
 
 ```html
 <article>
-  <p>Body text (<citation>Jones, The title</citation>).</p>
+  <p>Body text (<citation jones99 />).</p>
   <p>More body text.</p>
   ...
-  <bibliography src="./project-root/bib.json" />
+  <bibliography dir/bib.json />
 </article>
 ```
 
@@ -51,12 +53,12 @@ The `<citation>` and the companion `<bibliography />` elements allow the creatio
 
 ```html
 <article>
-  <p>Body text (<cite><a href="#jones-1999">Jones, 1999</a></cite>).</p>
+  <p>Body text (<cite><a href="#jones99">Jones, 1999</a></cite>).</p>
   <p>More body text.</p>
   ...
   <section id="bibliography">
     <ol>
-      <li id="jones-1999">
+      <li id="jones99">
         Jones, 1999. "The title". 
         <a href="http://uni.edu/chem/jones/doc.pdf">//uni.edu/chem/jones/doc.pdf</a>. 
         Accessed: 25-6-2015.
@@ -68,9 +70,10 @@ The `<citation>` and the companion `<bibliography />` elements allow the creatio
 
 #### Bibliography data store
 ```js
-// EXAMPLE ./project-root/bib.json --------------------------------------
+// EXAMPLE ./dir/bib.json --------------------------------------
 [
   {
+    "id":       {String}, // 'jones99'
     "author":   {String}, // 'Jon Jones'
     "year":     {Number}, // 1999
     "title":    {String}, // 'The title'
@@ -79,19 +82,23 @@ The `<citation>` and the companion `<bibliography />` elements allow the creatio
   }
 ]
 ```
+This is in the spirit of [BibTeX](http://www.bibtex.org/), but is expressed as valid JSON.
 
 ## &lt;index />
 Use the self-closing `<index />` element to generate a linked table of contents, which references each of your `<section>` elements, using the text content of the first `<h1>` or `<h2>` within.
 
+#### Numbering style
+The numbering style of the index is determined by CSS `list-style` property on `ol.article-index`.
+
 ## &lt;example> and &lt;ex />
-Use the `<example>` to have automatically-numbered example cases.
+Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
 
 ```html
 <article>
-  <example id="ecp-violation">
+  <example ecp-violation>
     John is illegal to park here.
   </example>
-  <p>Body text referencing example no. <ex src="ecp-violation" />.</p>
+  <p>Here we have example (<ex ecp-violation />).</p>
 </article>
 ```
 
@@ -102,6 +109,8 @@ Use the `<example>` to have automatically-numbered example cases.
   <div class="example" id="ecp-violation">
     <span class="example-number">1</span> John is illegal to park here.
   </div>
-  <p>Body text referencing example no. <a href="#ecp-violation">1</a>.</p>
+  <p>Here we have example (<a href="#ecp-violation">1</a>).</p>
 </article>
 ```
+#### Numbering style
+If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to your enclosing article element, as follows: `<article alpha-example>`.
