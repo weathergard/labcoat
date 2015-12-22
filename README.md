@@ -38,7 +38,7 @@ Use the `<footnote>` element to get reciprocally-linked foot notes. Use the comp
 If you prefer alphabetical numbering for your footnotes (i, ii, or I, II, etc.), add the `alpha-footnotes` attribute to your enclosing article element, as follows: `<article alpha-footnotes>`. You'll need to use CSS to style your `<ol>` numbering style to match. 
 
 ## &lt;citation /> and &lt;bibliography />
-The `<citation>` and the companion `<bibliography />` elements allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an external store of bibliographic data. This store can be .json file stored on your server or a URL pointing to a .json file.
+The `<citation>` and the companion `<bibliography />` elements allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an external store of bibliographic data. Provide a file path or URL to a JSON file (format given below) as attribute.
 
 ```html
 <article>
