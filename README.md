@@ -162,4 +162,4 @@ Use the `<example>` element to get automatically-numbered example cases, and use
 <hr>
 
 #### Performance goal
-2,000-word paper, with 10 numbered examples, 10 footnotes, and 10 citations: <10ms
+2,000-word paper, with 10 numbered examples, 10 footnotes, and 10 citations: <10ms. Must use only regular expressions, basic count and id-generation logic, and simple string replacement in a set of stacked transforms; since the elements are of my invention, parsing them is trivial&#8212;none of the problems attendant to parsing HTML proper apply.
