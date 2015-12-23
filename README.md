@@ -54,14 +54,26 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
 If you prefer alphabetical numbering for your end notes, add the `alpha` attribute as follows: `<endnotes alpha />`. Then set the `list-style` CSS property on `ol.notes` to match.
 
 ## &lt;citation /> and &lt;bibliography />
-The `<citation>` and the companion `<bibliography />` elements allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an external store of bibliographic data. Provide a file path or URL to a JSON file (format given below) as attribute.
+The `<citation>` element and the companion `<bibliography>` element allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an store of bibliographic data.
 
 ```html
 <article>
   <p>Body text (<citation jones99 />).</p>
   <p>More body text.</p>
   ...
-  <bibliography dir/bib.json />
+  <bibliography>
+    [
+      {
+        "id":       {String}, // 'jones99'
+        "author":   {String}, // 'Jon Jones'
+        "year":     {Number}, // 1999
+        "title":    {String}, // 'The title'
+        "url":      {String}, // 'http://uni.edu/chem/jones/doc.pdf'
+        "accessed": {String}  // '25-6-2015'
+      },
+      ...
+    ]
+  </bibliography>
 </article>
 ```
 
@@ -83,22 +95,6 @@ The `<citation>` and the companion `<bibliography />` elements allow the creatio
   </section>
 </article>
 ```
-
-#### Bibliography data store
-```js
-// EXAMPLE ./dir/bib.json --------------------------------------
-[
-  {
-    "id":       {String}, // 'jones99'
-    "author":   {String}, // 'Jon Jones'
-    "year":     {Number}, // 1999
-    "title":    {String}, // 'The title'
-    "url":      {String}, // 'http://uni.edu/chem/jones/doc.pdf'
-    "accessed": {String}  // '25-6-2015'
-  }
-]
-```
-This is in the spirit of [BibTeX](http://www.bibtex.org/), but is expressed as valid JSON.
 
 ## &lt;index />
 Use the self-closing `<index />` element to generate a linked table of contents, which references each of your `<section>` elements, using the text content of the first `<h1>` or `<h2>` within.
