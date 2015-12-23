@@ -39,7 +39,7 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
 
 ```html
 <article>
-  <p>Body text.<sup id="intext-note-1"><a href="#note-1">1</a></sup></p>
+  <p>Body text.<sup><a id="intext-note-1" href="#note-1">1</a></sup></p>
   <p>More body text.</p>
   ...
   <section class="notes-section">
