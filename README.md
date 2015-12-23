@@ -42,11 +42,11 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
   <p>Body text.<sup id="intext-note-1"><a href="#note-1">1</a></sup></p>
   <p>More body text.</p>
   ...
-  <footer class="notes">
-    <ol class="notes">
+  <section class="notes-section">
+    <ol class="notes-list">
       <li id="note-1"><a href="#intext-note-1">a note</a></li>
     </ol>
-  </footer>
+  </section>
 </article>
 ```
 
