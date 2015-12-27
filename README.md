@@ -5,8 +5,8 @@ Enhance your HTML with scholarly bibliographic and annotation features, entirely
 Labcoat is a fast, idempotent, side-effect-free, pure function. You can use it:
 
 1. in Node.js: `res.end(labcoat(html))`
-1. it in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
-1. in the shell: `$ file.html | labcoat > file.html`
+1. in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
+1. on the command line: `$ file.html | labcoat > file.html`
 
 <hr>
 
