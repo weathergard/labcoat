@@ -2,22 +2,11 @@
 Enhance your HTML with scholarly bibliographic and annotation features, entirely on the server-side.
 
 ## Use it anywhere.
-Labcoat is a pure function&#8212;provide it with input markup text, and it will map it to the output. It's idempotent, and it's fast. That means you can:
+Labcoat is a fast, idempotent, side-effect-free, pure function&#8212;provide it with input markup, and it will map it to the output. That means you can easily use it:
 
-* Pipe material into it on command line: `$ html | labcoat > file.html`
-
-* Compile-on-the-fly in Node.js or Express: `res.end(labcoat(html))`
-
-* Apply it to documents in the browser: 
-
-    ```html
-    ...
-    <script>
-      let html = document.body.innerHTML
-      document.body.innerHTML = labcoat(html)
-    </script>
-    </body>
-    ```
+* in Node.js: `res.end(labcoat(html))`
+* from on command line: `$ html | labcoat > file.html`
+* it in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
 
 <hr>
 
@@ -51,7 +40,7 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
 ```
 
 #### Numbering style
-If you prefer alphabetical numbering for your end notes, add the `alpha` attribute as follows: `<endnotes alpha />`. Then set the `list-style` CSS property on `ol.notes` to match.
+If you prefer alphabetical numbering for your end notes, add the `alpha` attribute as follows: `<endnotes alpha />`, and set the `list-style` CSS property on `ol.notes` to match.
 
 ## &lt;citation /> and &lt;bibliography />
 The `<citation>` element and the companion `<bibliography>` element allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an store of bibliographic data.
@@ -96,32 +85,6 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 </article>
 ```
 
-## &lt;example> and &lt;ex />
-Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
-
-```html
-<article>
-  <example ecp-violation>
-    John is illegal to park here.
-  </example>
-  <p>Here we have example (<ex ecp-violation />).</p>
-</article>
-```
-
-#### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
-
-```html
-<article>
-  <div class="example" id="ecp-violation">
-    <span class="example-number">1</span> John is illegal to park here.
-  </div>
-  <p>Here we have example (<a href="#ecp-violation">1</a>).</p>
-</article>
-```
-#### Numbering style options
-* If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to the enclosing article element, as follows: `<article alpha-example>`.
-* If you want numbering to restart for each `<section>`, add the `examples-by-section` attribute.
-
 ## &lt;diagram> + &lt;diagcaption> and &lt;diag />
 Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and `<figcaption>`. These will be automatically labeled, numbered, and ID'ed. You can use labcoat's self-closing `<diag />` element to create in-text references to your diagrams, as given here:
 
@@ -149,7 +112,37 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and
 </article>
 ```
 
+#### Numbering style options
+If you prefer alphabetical numbering for your diagrams (i, ii, or I, II, etc.), add the `alpha-diag` attribute to the enclosing article element, as follows: `<article alpha-diagram>`.
+
 <hr>
 
 #### Performance goal
 2,000-word paper, with 10 numbered examples, 10 footnotes, and 10 citations: <10ms. Must use only regular expressions, basic count and id-generation logic, and simple string replacement in a set of stacked transforms; since the elements are of my invention, parsing them is trivial&#8212;none of the problems attendant to parsing HTML proper apply.
+
+## Future Additions
+### &lt;example> and &lt;ex />
+Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
+
+```html
+<article>
+  <example ecp-violation>
+    John is illegal to park here.
+  </example>
+  <p>Here we have example (<ex ecp-violation />).</p>
+</article>
+```
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
+
+```html
+<article>
+  <div class="example" id="ecp-violation">
+    <span class="example-number">1</span> John is illegal to park here.
+  </div>
+  <p>Here we have example (<a href="#ecp-violation">1</a>).</p>
+</article>
+```
+#### Numbering style options
+* If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to the enclosing article element, as follows: `<article alpha-example>`.
+* If you want numbering to restart for each `<section>`, add the `examples-restart` attribute to the enclosing `<article>` element.
