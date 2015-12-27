@@ -2,11 +2,13 @@
 Enhance your HTML with scholarly bibliographic and annotation features, entirely on the server-side.
 
 ## Use it anywhere.
-Labcoat is a fast, idempotent, side-effect-free, pure function. You can use it:
+Labcoat is an idempotent, side-effect-free, pure function. You can use it:
 
 1. in Node.js: `res.end(labcoat(html))`
 1. in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
 1. on the command line: `$ file.html | labcoat > file.html`
+
+It transpiles the &approx;4,300 character benchmark HTML document in &approx;2&ndash;3ms on a late-model MacBook.
 
 <hr>
 
@@ -114,11 +116,6 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and
 
 #### Numbering style options
 If you prefer alphabetical numbering for your diagrams (i, ii, or I, II, etc.), add the `alpha-diag` attribute to the enclosing article element, as follows: `<article alpha-diagram>`.
-
-<hr>
-
-#### Performance goal
-2,000-word paper, with 10 numbered examples, 10 footnotes, and 10 citations: <10ms. Must use only regular expressions, basic count and id-generation logic, and simple string replacement in a set of stacked transforms; since the elements are of my invention, parsing them is trivial&#8212;none of the problems attendant to parsing HTML proper apply.
 
 ## Future Additions
 ### &lt;example> and &lt;ex />
