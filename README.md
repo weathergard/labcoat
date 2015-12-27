@@ -140,9 +140,9 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and
 ```html
 <article>
   <figure id="figure-1" title="taj-mahal">
-    <img src"...">
+    <img src="taj-mahal.jpg">
     <figcaption>
-        <span class="figure-label">Figure 1</span> the caption
+      <span class="figure-label">Figure 1</span> the caption
     </figcpation>
   </figure>
   <p>And here we see <a class="figure-reference" href="figure-1">Figure 1<a>.</p>
