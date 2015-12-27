@@ -96,12 +96,6 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 </article>
 ```
 
-## &lt;index />
-Use the self-closing `<index />` element to generate a linked table of contents, which references each of your `<section>` elements, using the text content of the first `<h1>` or `<h2>` within.
-
-#### Numbering style
-The numbering style of the index is determined by CSS `list-style` property on `ol.article-index`.
-
 ## &lt;example> and &lt;ex />
 Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
 
