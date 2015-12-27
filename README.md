@@ -8,7 +8,7 @@ Labcoat is an idempotent, side-effect-free, pure function. You can use it:
 1. in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
 1. on the command line: `$ file.html | labcoat > file.html`
 
-It transpiles the &approx;4,300 character benchmark HTML document in &approx;2&ndash;3ms on a late-model MacBook.
+It transpiles the 4,300-character benchmark HTML document in &approx;2&ndash;3ms on a late-model MacBook.
 
 <hr>
 
