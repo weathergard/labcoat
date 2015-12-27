@@ -123,7 +123,7 @@ Use the `<example>` element to get automatically-numbered example cases, and use
 * If you want numbering to restart for each `<section>`, add the `examples-by-section` attribute.
 
 ## &lt;diagram> + &lt;diagcaption> and &lt;diag />
-`<ffigure>` and `<ffigcaption>` elements will be automatically labeled, numbered, and ID'ed. You can use labcoat's self-closing `<ffig />` element to create in-text references to figures, as given here:
+Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and `<figcaption>`. These will be automatically labeled, numbered, and ID'ed. You can use labcoat's self-closing `<diag />` element to create in-text references to your diagrams, as given here:
 
 ```html
 <article>
