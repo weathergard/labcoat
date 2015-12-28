@@ -1,5 +1,5 @@
 # Labcoat
-Enhance your HTML with scholarly bibliographic and annotation features, entirely on the server-side.
+Enhance HTML with scholarly bibliographic and annotation features.
 
 ## Use it anywhere.
 Labcoat is a *fast,* idempotent, side-effect-free, pure function with no dependencies. Its output is valid HTML5. You can use it:
