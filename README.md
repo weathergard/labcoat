@@ -36,7 +36,7 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
   <p>Body text.<sup><a id="intext-note-1" href="#note-1">1</a></sup></p>
   <p>More body text.</p>
   ...
-  <section class="notes-section">
+  <section class="endnotes">
     <ol class="notes-list">
       <li id="note-1"><a href="#intext-note-1">a note</a></li>
     </ol>
@@ -45,7 +45,7 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
 ```
 
 #### Numbering style
-If you prefer alphabetical numbering for your end notes, add the `alpha` attribute as follows: `<endnotes alpha />`, and set the `list-style` CSS property on `ol.notes` to match.
+Default numbering style is plain integers; provide either a `latin` or `roman` attribute, as follows `<endnotes latin />`, and set the `list-style` CSS property on `ol.endnotes` to match.
 
 ## &lt;citation /> and &lt;bibliography />
 The `<citation>` element and the companion `<bibliography>` element allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an store of bibliographic data.
@@ -118,7 +118,7 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and
 ```
 
 #### Numbering style options
-If you prefer alphabetical numbering for your diagrams (i, ii, or I, II, etc.), add the `alpha-diag` attribute to the enclosing article element, as follows: `<article alpha-diagram>`.
+The default numbering style is plain integers. You may specify otherwise by providing either a `latin-diagrams` or `roman-diagrams` attribute to the enclosing article element, as follows: `<article latin-diagrams>`.
 
 ## Future Additions
 ### &lt;example> and &lt;ex />
@@ -144,5 +144,5 @@ Use the `<example>` element to get automatically-numbered example cases, and use
 </article>
 ```
 #### Numbering style options
-* If you prefer alphabetical numbering for your examples (i, ii, or I, II, etc.), add the `alpha-example` attribute to the enclosing article element, as follows: `<article alpha-example>`.
-* If you want numbering to restart for each `<section>`, add the `examples-restart` attribute to the enclosing `<article>` element.
+* The default numbering style is plain integers. You may specify otherwise by providing either a `latin-examples` or `roman-examples` attribute to the enclosing article element, as follows: `<article latin-examples>`.
+* If you want numbering to restart for each `<section>`, add the `examples-restart` attribute to the enclosing `<article>` element, as follows: `<article examples-restart>`.
