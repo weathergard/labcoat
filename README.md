@@ -9,7 +9,7 @@ Labcoat is a *fast,* idempotent, side-effect-free, pure function with no depende
 1. on the command line: `$ file.html | labcoat > file.html`
 
 ## Prefatory comment on performance
-Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly-specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
+Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
 
 **Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, transpilation usually finishes in fewer than 600 microseconds (<0.6ms) on a 2.2ghz i7.
 
