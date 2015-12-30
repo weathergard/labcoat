@@ -15,6 +15,9 @@ Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms on
 1
 <hr>
 
+## Install it.
+`install npm labcoat [-g]`
+
 ## Start with &lt;article>
 Labcoat takes the standard HTML5 `<article>` element as its domain. That is, only material within an `<article>` will be transpiled from labcoat markup to HTML.
 
@@ -121,6 +124,9 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figu
 The default numbering style is plain integers. You may specify otherwise by providing either a `latin-diagrams` or `roman-diagrams` attribute to the enclosing article element, as follows: `<article latin-diagrams>`.
 
 ## Future Additions
+### External bibliographic data
+Something like `<bibliography src="..." />` will be an option, with a filesystem variant for server use, and an http/URL variant in the browser.
+
 ### &lt;example> and &lt;ex />
 Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
 
@@ -144,5 +150,12 @@ Use the `<example>` element to get automatically-numbered example cases, and use
 </article>
 ```
 #### Numbering style options
-* The default numbering style is plain integers. You may specify otherwise by providing either a `latin-examples` or `roman-examples` attribute to the enclosing article element, as follows: `<article latin-examples>`.
-* If you want numbering to restart for each `<section>`, add the `examples-restart` attribute to the enclosing `<article>` element, as follows: `<article examples-restart>`.
+The default numbering style is plain integers. You may specify otherwise by providing either a `latin-examples` or `roman-examples` attribute on the enclosing article element, as follows: `<article latin-examples>`.
+
+### &lt;index />
+An `<index />` element would place-hold for a simple linked index section at the top of the `<article>` element. An earlier attempt at this reveals that it is hard to do without general HTML parsing. A non-linked version would be easy, but a linked version requires tangling with `<section>` as well as `<h1>` to `<h6>`.
+
+A conservative solution would be to remove attribute values (`="..."`) before parsing elements, to eliminate the possibility of in-attribute-value less-than and greater-than brackets causing the parse to fail. But how then do we replace the old markup with new, without erasing the attributes? Move them to a hash table, and add them later? This becomes complex. And non-instant.
+
+### Equations
+Transpile basic, non-symbol-crazy LaTeX equations to HTML, with a minimal, automatically generated `<style>` block appearing in the `<head>`. Will need to include a font solution of some kind (use TeX Gyre?).
