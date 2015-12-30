@@ -16,7 +16,7 @@ Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms on
 <hr>
 
 ## Install it.
-`install npm labcoat [-g]`
+`npm install labcoat [-g]`
 
 ## Start with &lt;article>
 Labcoat takes the standard HTML5 `<article>` element as its domain. That is, only material within an `<article>` will be transpiled from labcoat markup to HTML.
