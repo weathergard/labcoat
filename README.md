@@ -12,7 +12,7 @@ Labcoat is a *fast,* idempotent, side-effect-free, pure function with no depende
 Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
 
 **Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, transpilation usually finishes in fewer than 600 microseconds (<0.6ms) on a 2.2ghz i7.
-
+1
 <hr>
 
 ## Start with &lt;article>
@@ -33,19 +33,19 @@ Use the `<endnote>` element to get reciprocally-linked end notes. Use the compan
 
 ```html
 <article>
-  <p>Body text.<sup><a id="intext-note-1" href="#note-1">1</a></sup></p>
+  <p>Body text.<sup><a id="intext-note-1" href="#endnote-1">1</a></sup></p>
   <p>More body text.</p>
   ...
-  <section class="endnotes">
-    <ol class="notes-list">
-      <li id="note-1"><a href="#intext-note-1">a note</a></li>
+  <section id="endnotes">
+    <ol class="endnotes-list">
+      <li id="endnote-1"><a href="#intext-note-1">a note</a></li>
     </ol>
   </section>
 </article>
 ```
 
 #### Numbering style
-Default numbering style is plain integers; provide either a `latin` or `roman` attribute, as follows `<endnotes latin />`, and set the `list-style` CSS property on `ol.endnotes` to match.
+Default numbering style is plain integers; provide either a `latin` or `roman` attribute, as follows: `<endnotes latin />`. Then, set the `list-style` CSS property on `ol.endnotes-list` to match.
 
 ## &lt;citation /> and &lt;bibliography />
 The `<citation>` element and the companion `<bibliography>` element allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an store of bibliographic data.
@@ -79,10 +79,10 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
   <p>More body text.</p>
   ...
   <section id="bibliography">
-    <ol>
+    <ol class="bibliography-list">
       <li id="jones99">
-        Jones, 1999. "The title". 
-        <a href="http://uni.edu/chem/jones/doc.pdf">//uni.edu/chem/jones/doc.pdf</a>. 
+        Jones, 1999. "The title".
+        <a href="http://uni.edu/chem/jones/doc.pdf">//uni.edu/chem/jones/doc.pdf</a>.
         Accessed: 25-6-2015.
       </li>
     </ol>
@@ -91,7 +91,7 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 ```
 
 ## &lt;diagram> + &lt;diagcaption> and &lt;diag />
-Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and `<figcaption>`. These will be automatically labeled, numbered, and ID'ed. You can use labcoat's self-closing `<diag />` element to create in-text references to your diagrams, as given here:
+Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figure>` and `<figcaption>` elements; these will be automatically labeled, numbered, and ID'ed. Use the self-closing `<diag />` element to create in-text references to your diagrams, as shown here:
 
 ```html
 <article>
@@ -107,7 +107,7 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements in place of `<figure>` and
 
 ```html
 <article>
-  <figure id="figure-1" title="taj-mahal">
+  <figure class="diagram" id="figure-1" title="taj-mahal">
     <img src="taj-mahal.jpg">
     <figcaption>
       <span class="figure-label">Figure 1</span> the caption

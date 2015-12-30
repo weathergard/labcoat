@@ -46,7 +46,7 @@ function transpile(markup) {
     )
   })
   let bibSection = `<section id="bibliography">
-      <ol>${li.join('')}
+      <ol class="bibliography-list">${li.join('')}
       </ol>
     </section>`
   return markup.replace(rBib, bibSection)

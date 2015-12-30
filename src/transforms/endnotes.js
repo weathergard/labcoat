@@ -31,7 +31,7 @@ export default function (markup) {
   let numbering = numerals(markup)
   notes.forEach((note, index) => {
     let num = numbering(index + 1)
-    let ref = `<sup><a id="intext-note-${num}" href="#note-${num}">${num}</a></sup>`
+    let ref = `<sup><a id="intext-note-${num}" href="#endnote-${num}">${num}</a></sup>`
     markup = markup.replace(note, ref)
   })
   let li = notes
@@ -40,9 +40,9 @@ export default function (markup) {
     })
     .map((note, index) => {
       let num = numbering(index + 1)
-      return `<li><a id="note-${num}" href="#intext-note-${num}">${note}</a></li>`
+      return `<li><a id="endnote-${num}" href="#intext-note-${num}">${note}</a></li>`
     })
-  let footer = `<section class="notes"><ol class="notes-list">${li.join('')}</ol></section>`
+  let footer = `<section class="endnotes"><ol class="endnotes-list">${li.join('')}</ol></section>`
   markup = markup.replace(rEndNotes, footer)
   return markup
 }
