@@ -1,4 +1,3 @@
-import env from '../env'
 import * as registry from '../registry'
 
 // EXCEPTION MESSAGES ==========================================================

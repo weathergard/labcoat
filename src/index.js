@@ -1,4 +1,3 @@
-import env from './env'
 import * as registry from './registry'
 import article from './transforms/article'
 import diagrams from './transforms/diagrams'
