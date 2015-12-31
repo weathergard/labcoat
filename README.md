@@ -61,12 +61,14 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
   <bibliography>
     [
       {
-        "id":       {String}, // 'jones99'
-        "author":   {String}, // 'Jon Jones'
-        "year":     {Number}, // 1999
-        "title":    {String}, // 'The title'
-        "url":      {String}, // 'http://uni.edu/chem/jones/doc.pdf'
-        "accessed": {String}  // '25-6-2015'
+        "id":       {String},       // 'jones99'
+        "firstname":{String},       // 'Jon'
+        "lastname": {String},       // 'Jones'
+        "authors":  {String|Null|}  // For
+        "year":     {Number},       // 1999
+        "title":    {String},       // 'The title'
+        "url":      {String},       // 'http://uni.edu/chem/jones/doc.pdf'
+        "accessed": {String}        // '25-6-2015'
       },
       ...
     ]
@@ -84,7 +86,7 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
   <section id="bibliography">
     <ol class="bibliography-list">
       <li id="jones99">
-        Jones, 1999. "The title".
+        Jones, Jon. 1999. "The title".
         <a href="http://uni.edu/chem/jones/doc.pdf">//uni.edu/chem/jones/doc.pdf</a>.
         Accessed: 25-6-2015.
       </li>
@@ -92,6 +94,38 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
   </section>
 </article>
 ```
+
+#### Citation style
+Labcoat offers a basic APA-like source citation formatting style, which is likely adequate for purposes of lay publishing. Additionally, a simple API allows registration of custom styles; provide a name, in-text, and full-length render functions:
+
+```js
+labcoat.style('chicago-alt', inText, full)
+```
+
+Both functions accept a single object parameter (a bibliography citation). Each function must transform the object and return a string (see the [basic renderer source code](/src/citation-renderers/basic.js)). To use the custom style, invoke its name as follows:
+
+```html
+<bibliography chicago-alt>
+  [
+    {
+      "id":       {String},       // 'jones99'
+      "firstname":{String},       // 'Jon'
+      "lastname": {String},       // 'Jones'
+      "authors":  {String|Null|}  // For
+      "year":     {Number},       // 1999
+      "title":    {String},       // 'The title'
+      "url":      {String},       // 'http://uni.edu/chem/jones/doc.pdf'
+      "accessed": {String}        // '25-6-2015'
+    },
+    ...
+  ]
+</bibliography>
+```
+
+You can:
+* register as many styles as you please
+* overwrite previously registered styles as it suits you
+* pass a falsy value in place of a function to get basic style in its place
 
 ## &lt;diagram> + &lt;diagcaption> and &lt;diag />
 Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figure>` and `<figcaption>` elements; these will be automatically labeled, numbered, and ID'ed. Use the self-closing `<diag />` element to create in-text references to your diagrams, as shown here:
@@ -124,9 +158,6 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figu
 The default numbering style is plain integers. You may specify otherwise by providing either a `latin-diagrams` or `roman-diagrams` attribute to the enclosing article element, as follows: `<article latin-diagrams>`.
 
 ## Future Additions
-### External bibliographic data
-Something like `<bibliography src="..." />` will be an option, with a filesystem variant for server use, and an http/URL variant in the browser.
-
 ### &lt;example> and &lt;ex />
 Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
 
@@ -156,6 +187,3 @@ The default numbering style is plain integers. You may specify otherwise by prov
 An `<index />` element would place-hold for a simple linked index section at the top of the `<article>` element. An earlier attempt at this reveals that it is hard to do without general HTML parsing. A non-linked version would be easy, but a linked version requires tangling with `<section>` as well as `<h1>` to `<h6>`.
 
 A conservative solution would be to remove attribute values (`="..."`) before parsing elements, to eliminate the possibility of in-attribute-value less-than and greater-than brackets causing the parse to fail. But how then do we replace the old markup with new, without erasing the attributes? Move them to a hash table, and add them later? This becomes complex. And non-instant.
-
-### Equations
-Transpile basic, non-symbol-crazy LaTeX equations to HTML, with a minimal, automatically generated `<style>` block appearing in the `<head>`. Will need to include a font solution of some kind (use TeX Gyre?).
