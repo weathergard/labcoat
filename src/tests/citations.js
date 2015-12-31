@@ -3,7 +3,9 @@ import citations from '../transforms/citations'
 
 const DOE84 = JSON.stringify({
   "id": "doe84",
-  "author": "Jon Doe",
+  "firstname": "Jon",
+  "lastname": "Doe",
+  "authors": null,
   "year": 1984,
   "title": "The title",
   "url": "http://uni.edu/chem/jones/doc.pdf",
@@ -13,36 +15,30 @@ const DOE84 = JSON.stringify({
 const GOOD_HTML = [
   [ // Data undefined (should still transpile).
     '<citation doe84 /><bibliography></bibliography>',
-    '<cite><a href="#doe84">undefined, undefined</a></cite>'+
+    '<cite><a href="#doe84"></a></cite>'+
     '<section id="bibliography">'+
-      '<ol>'+
-        '<li id="undefined">'+
-          'undefined, undefined. "undefined".'+
-          '<a href="undefined">undefined</a>.'+
-          'Accessed: undefined.</li>'+
+      '<ol class="bibliography-list">'+
+        '<li id="doe84"></li>'+
       '</ol>'+
     '</section>'
   ],
   [ // Data empty (should still transpile).
     '<citation doe84 /><bibliography>[]</bibliography>',
-    '<cite><a href="#doe84">undefined, undefined</a></cite>'+
+    '<cite><a href="#doe84"></a></cite>'+
     '<section id="bibliography">'+
-      '<ol>'+
-        '<li id="undefined">'+
-          'undefined, undefined. "undefined".'+
-          '<a href="undefined">undefined</a>.'+
-          'Accessed: undefined.</li>'+
+      '<ol class="bibliography-list">'+
+        '<li id="doe84"></li>'+
       '</ol>'+
     '</section>'
   ],
   [ // Working case.
     '<citation doe84 />'+
     '<bibliography>['+ DOE84 +']</bibliography>',
-    '<cite><a href="#doe84">Jon Doe, 1984</a></cite>'+
+    '<cite><a href="#doe84">Doe, 1984</a></cite>'+
     '<section id="bibliography">'+
-      '<ol>'+
+      '<ol class="bibliography-list">'+
         '<li id="doe84">'+
-          'Jon Doe, 1984. "The title".'+
+          'Doe, Jon. 1984. "The title".'+
           '<a href="http://uni.edu/chem/jones/doc.pdf">http://uni.edu/chem/jones/doc.pdf</a>.'+
           'Accessed: 25-6-2015.</li>'+
       '</ol>'+
