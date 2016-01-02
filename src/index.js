@@ -6,6 +6,12 @@ import citations from './transforms/citations'
 import idempotentiate from './transforms/idempotentiate'
 import * as basic from './citation-renderers/basic'
 
+/**
+ * Transpiles input markup to HTML.
+ * @function
+ * @param {String} markup
+ * @return {String}
+ */
 function transpiler (markup) {
   let content = article(markup)
   if (!content) return markup
@@ -24,14 +30,20 @@ function transpiler (markup) {
   )
 }
 
-transpiler.style = function (name, inText, full) {
+/**
+ * Registers a citation style.
+ * @function
+ * @param {String} name
+ * @param {Object} style
+ * @return {}
+ */
+transpiler.style = function (name, style) {
   registry.set('styles', name, {
-    inText: inText,
-    full: full
+    inText: style.inText,
+    full: style.full,
+    order: style.order
   })
 }
 
-// Register core citation styles
-transpiler.style('basic', basic.inText, basic.full)
-
+transpiler.style('basic', basic)
 export default transpiler
