@@ -1,5 +1,5 @@
-let rArticle = /<article/g
+let rMain = /<main/g
 
 export default function (markup) {
-  return markup.replace(rArticle, '<article data-transpiled')
+  return markup.replace(rMain, '<main data-transpiled')
 }

@@ -1,11 +1,11 @@
-import articleTests from '../tests/article'
+import bodyTests from '../tests/body'
 import endnoteTests from '../tests/endnotes'
 import citationTests from '../tests/citations'
 import diagramTests from '../tests/diagrams'
 import benchmark from '../tests/benchmark'
 
 process.stdout.write('\n')
-articleTests()
+bodyTests()
 endnoteTests()
 citationTests()
 diagramTests()
