@@ -119,6 +119,7 @@ labcoat.style('style-name', myStyle)
 ```
 
 The two parameters are:
+
 1. ***name*** [required, string] is non-empty, and contains only *a&ndash;z, 0&ndash;9,* hyphen, and underscore.
 1. ***style*** [required, object] has 3 methods, described in the [previous section](#creating-a-custom-citation-style).
 
