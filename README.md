@@ -11,7 +11,7 @@ Labcoat is a *fast,* idempotent, side-effect-free, pure function with no depende
 ## Prefatory comment on performance
 Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
 
-**Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, and basic citation style, transpilation usually finishes in fewer than 950 microseconds (<1ms) on a 2.2ghz i7.
+**Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, and basic citation style, transpilation usually finishes in fewer than 950 microseconds (less than a millisecond) on a 2.2ghz Core i7.
 
 <hr>
 
@@ -107,7 +107,7 @@ A style is simply an object with three* methods for transforming bibliographic d
 
 Consult [basic style](/src/citation-renderers/basic) for example code.
 
-\*If a style does not define `.inText()` or `.full()`, the basic style method will be used in it's place. If the `.order()` method is not defined, order defaults to the order of appearance in the body text (as in MLA style writing).
+\*If a style does not define `.inText()` or `.full()`, the basic style method will be used in its place. If the `.order()` method is not defined, order defaults to the order of appearance in the body text (as in MLA style writing).
 
 #### Registering a citation style
 You can register as many custom styles as you like, and you may overwrite/update previously registered styles (even the provided basic style). Register as follows:
