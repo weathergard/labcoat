@@ -55,22 +55,20 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 
 ```html
 <article>
-  <p>Body text (<citation jones99 />).</p>
-  <p>More body text.</p>
-  ...
+  <p>Body text (<citation chomsky93 />).</p>
   <bibliography>
     [
       {
-        "id":       {String},       // 'jones99'
-        "firstname":{String},       // 'Jon'
-        "lastname": {String},       // 'Jones'
-        "authors":  {String|Null|}  // For
-        "year":     {Number},       // 1999
-        "title":    {String},       // 'The title'
-        "url":      {String},       // 'http://uni.edu/chem/jones/doc.pdf'
-        "accessed": {String}        // '25-6-2015'
-      },
-      ...
+        "id":        'chomsky93',
+        "firstname": 'Noam',
+        "lastname":  'Chomsky',
+        "authors":   null, // e.g. 'Chomsky, Noam, and Morris Halle'
+        "year":      1993,
+        "title":     'The Minimalist Program',
+        "publisher": 'MIT Press',
+        "url":       'http://uni.edu/ling/chomsky/mp.pdf',
+        "accessed":  '25-6-2015'
+      }
     ]
   </bibliography>
 </article>
@@ -80,14 +78,12 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 
 ```html
 <article>
-  <p>Body text (<cite><a href="#jones99">Jones, 1999</a></cite>).</p>
-  <p>More body text.</p>
-  ...
+  <p>Body text (<cite><a href="#chomsky93">Chomsky 1993</a></cite>).</p>
   <section id="bibliography">
     <ol class="bibliography-list">
-      <li id="jones99">
-        Jones, Jon. 1999. "The title".
-        <a href="http://uni.edu/chem/jones/doc.pdf">//uni.edu/chem/jones/doc.pdf</a>.
+      <li id="chomsky93">
+        Chomsky, Noam. 1993. "The Minimalist Program".
+        <a href="http://uni.edu/ling/chomsky/mp.pdf">http://uni.edu/ling/chomsky/mp.pdf</a>.
         Accessed: 25-6-2015.
       </li>
     </ol>
@@ -128,20 +124,6 @@ First, labcoat's basic citation style is an implicit default&mdash;it does not n
 
 ```html
 <bibliography style-name>
-  [
-    {
-      "id":       {String},       // 'jones99'
-      "firstname":{String},       // 'Jon'
-      "lastname": {String},       // 'Jones'
-      "authors":  {String|}       // (Use for multiple authors)
-      "year":     {Number},       // 1999
-      "title":    {String},       // 'The title'
-      "url":      {String},       // 'http://uni.edu/chem/jones/doc.pdf'
-      "accessed": {String}        // '25-6-2015'
-    },
-    ...
-  ]
-</bibliography>
 ```
 
 ## &lt;diagram> + &lt;diagcaption> and &lt;diag />
