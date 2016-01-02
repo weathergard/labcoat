@@ -1,15 +1,4 @@
 import * as registry from '../registry'
-
-// EXCEPTION MESSAGES ==========================================================
-const INTEXT_NOT_FOUND = ''+
-  'WARN: No in-text renderer was found by the specified name. Check the '+
-  'attribute on the opening <bibliogrpahy> tag.'
-
-const FULLLEN_NOT_FOUND = '' +
-  'WARN: No full-length renderer was found by the specified name. Check the '+
-  'attribute on the opening <bibliogrpahy> tag.'
-// =============================================================================
-
 let rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography>/
 let rCitation = /<citation\s([^>]+?)\s?\/>/g
 
@@ -47,24 +36,30 @@ function getBibData(markup) {
 }
 
 /**
- * Retrieves the <bibliography> tag attribute to get the citation renderer from
- * the registry; defaults to basic-style.
+ * Retrieves the <bibliography> tag attribute to get the citation render
+ * functions from the registry.
  * @function
  * @param {String} markup
  * @return {Object}
+ * @note Missing render functions individiually default to basic-style.
  */
 function getRenderers(markup) {
-  let style = markup.match(rBib).shift().replace(rBib, '$1') || 'basic'
-  let renderer = registry.get('styles', style) || {}
-  if (!renderer.inText) {
-    console.log(INTEXT_NOT_FOUND)
-    renderer.inText = registry.get('styles', 'basic').inText
+  let style = (
+    markup
+      .match(rBib)
+      .shift()
+      .replace(rBib, '$1') || 'basic'
+  )
+  let basic = registry.get('styles', 'basic')
+  if (style === 'basic') {
+    return basic
+  } else {
+    let rndr = registry.get('styles', style) || {}
+    if (!rndr.inText) rndr.inText = basic.inText
+    if (!rndr.full) rndr.full = basic.full
+    if (!rndr.order) rndr.order = function () {return 0}
+    return rndr
   }
-  if (!renderer.full) {
-    console.log(FULLLEN_NOT_FOUND)
-    renderer.full = registry.get('styles', 'basic').full
-  }
-  return renderer
 }
 
 /**
@@ -75,17 +70,21 @@ function getRenderers(markup) {
  */
 function transpile(markup) {
   let bib = getBibData(markup)
-  let render = getRenderers(markup)
+  let rndr = getRenderers(markup)
   let refs = markup.match(rCitation).map((element) => {
     let id = element.replace(rCitation, '$1')
     let source = bib[id] || {id: id}
-    markup = markup.replace(element, render.inText(source))
+    markup = markup.replace(element, rndr.inText(source))
     return source
   })
   refs = refs.filter((item, index) => {
     return refs.indexOf(item) === index
   })
-  let li = refs.map(source => render.full(source))
+  let li = (
+    refs
+      .sort(rndr.order)
+      .map(source => rndr.full(source))
+  )
   let bibSection = `<section id="bibliography">
       <ol class="bibliography-list">${li.join('')}
       </ol>
