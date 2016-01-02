@@ -26,7 +26,7 @@ function numerals(markup) {
  * @param {String} markup - a document or fragment
  * @return {String}
  */
-export default function (markup) {
+function transpile(markup) {
   let notes = markup.match(rEndNote) || []
   let numbering = numerals(markup)
   notes.forEach((note, index) => {
@@ -45,4 +45,19 @@ export default function (markup) {
   let footer = `<section class="endnotes"><ol class="endnotes-list">${li.join('')}</ol></section>`
   markup = markup.replace(rEndNotes, footer)
   return markup
+}
+
+export default function (markup) {
+  try {
+    return transpile(markup)
+  } catch (err) {
+    return (
+      markup +
+      '\n<!-- '+
+      'Labcoat transpilation failed for <endnote> and <endnotes /> '+
+      'elements. '+
+      '\n' + err.stack + '\n'+
+      ' -->'
+    )
+  }
 }

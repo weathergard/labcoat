@@ -35,9 +35,11 @@ function transpileCaption(diagram, num) {
  * @return {String}
  */
 function transpile(markup) {
+  let matches = markup.match(rDiagram)
+  if (!matches) return markup
   let indices = {}
   let numbering = numerals(markup)
-  markup.match(rDiagram).forEach((diagram, index) => {
+  matches.forEach((diagram, index) => {
     let ident = diagram.match(rDiagram)
     if (!ident || !ident[0].length) return markup
     ident = ident[0].replace(rDiagram, '$1')
@@ -62,7 +64,6 @@ export default function (markup) {
   try {
     return transpile(markup)
   } catch (err) {
-    console.log(err.stack)
     return (
       markup +
       '\n<!-- '+

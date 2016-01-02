@@ -69,9 +69,11 @@ function getRenderers(markup) {
  * @return {String}
  */
 function transpile(markup) {
+  let matches = markup.match(rCitation)
+  if (!matches) return markup
   let bib = getBibData(markup)
   let rndr = getRenderers(markup)
-  let refs = markup.match(rCitation).map((element) => {
+  let refs = matches.map((element) => {
     let id = element.replace(rCitation, '$1')
     let source = bib[id] || {id: id}
     markup = markup.replace(element, rndr.inText(source))

@@ -46,22 +46,11 @@ const GOOD_HTML = [
   ]
 ]
 
-const BAD_HTML = [
-  '<citation />',
-  '<citation doe84 />'
-]
-
 export default function () {
   GOOD_HTML.forEach((pair) => {
     assert.equal(
       citations(pair[0]).replace(/\s/g, ''),
       pair[1].replace(/\s/g, '')
-    )
-  })
-  BAD_HTML.forEach((markup) => {
-    assert(
-      /transpilation failed/.test(citations(markup)),
-      'Should refuse to transpile.'
     )
   })
   console.log('  ✔ <citation />')
