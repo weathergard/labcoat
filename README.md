@@ -113,9 +113,9 @@ Consult [basic style](/src/citation-renderers/basic) for example code.
 You can register as many custom styles as you like, and you may overwrite/update previously registered styles (even the provided basic style). Register as follows:
 ```js
 // Anywhere in your app.
-import style from './style'
+import myStyle from './my-style'
 
-labcoat.style(name, style)
+labcoat.style('style-name', myStyle)
 ```
 
 1. ***name*** [required, string] is non-empty, and contains only *a&ndash;z, 0&ndash;9,* hyphen, and underscore.
@@ -125,7 +125,7 @@ labcoat.style(name, style)
 First, labcoat's basic citation style is an implicit default&mdash;it does not need to be declared in the markup. To use a custom style after you've registered it (see the # section), invoke its name in your markup, as follows:
 
 ```html
-<bibliography chicago-alt>
+<bibliography style-name>
   [
     {
       "id":       {String},       // 'jones99'
