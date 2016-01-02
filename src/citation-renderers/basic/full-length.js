@@ -68,7 +68,7 @@ function accessed(source) {
   return `Accessed: ${source.accessed}.`
 }
 
-/** Our transforms, in their proper order. */
+/** Our transforms, in APA-like order. */
 const TRANSFORMS = [
   id,
   authorYear,
@@ -83,33 +83,10 @@ const TRANSFORMS = [
  * @param {Object} source
  * @return {String}
  */
-export function full (source) {
+export default function full (source) {
   let output = ''
   TRANSFORMS.forEach((transform) => {
     output += transform(source)
   })
   return output + '</li>'
-}
-
-/**
- * Creates a formatted in-text source citation.
- * @function
- * @param {Object} source
- * @return {String}
- */
-export function inText (source) {
-  let output = '<cite>'
-  if (source.id) {
-    output += `<a href="#${source.id}">`
-  } else {
-    output += '<a>'
-  }
-  if (source.authors && source.year) { // Author or title
-    output += `${source.authors}, ${source.year}`
-  } else if (source.lastname && source.year) {
-    output += `${source.lastname}, ${source.year}`
-  } else if (source.title && source.year) {
-    output += `"${source.title}", ${source.year}`
-  }
-  return output + '</a></cite>'
 }
