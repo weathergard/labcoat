@@ -1,6 +1,6 @@
 {
   "name": "labcoat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Enhance HTML with scholarly bibliographic and annotation features.",
   "main": "./build/index.js",
   "scripts": {
