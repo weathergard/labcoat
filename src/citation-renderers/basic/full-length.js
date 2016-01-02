@@ -40,8 +40,8 @@ function authorYear(source) {
  */
 function title(source) {
   if (!source.title) return ''
-  if (source.title && !(source.author || source.lastname)) return ''
-  return `"${source.title}".`
+  if (source.title && !(source.authors || source.lastname)) return ''
+  return `&#8220;${source.title}&#8221;.`
 }
 
 /**
@@ -86,7 +86,7 @@ const TRANSFORMS = [
 export default function full (source) {
   let output = ''
   TRANSFORMS.forEach((transform) => {
-    output += transform(source)
+    output += transform(source) + ' '
   })
   return output + '</li>'
 }

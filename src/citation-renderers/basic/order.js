@@ -6,17 +6,15 @@
  * that to alphabetical order.
  */
 export default function (a, b) {
-  let aChar = (
-    a.lastname[0].toLowerCase() ||
-    a.authors[0].toLowerCase() ||
-    a.title[0].toLowerCase()
-  )
-  let bChar = (
-    b.lastname[0].toLowerCase() ||
-    b.authors[0].toLowerCase() ||
-    b.title[0].toLowerCase()
-  )
-  if (aChar === bChar) return 0
-  if ([aChar, bChar].sort()[0] === aChar) return -1
+  if (a.lastname) a = a.lastname[0].toLowerCase()
+  else if (a.authors) a = a.authors[0].toLowerCase()
+  else if (a.title) a = a.title[0].toLowerCase()
+
+  if (b.lastname) b = b.lastname[0].toLowerCase()
+  else if (b.authors) b = b.author[0].toLowerCase()
+  else if (b.title) b = b.title[0].toLowerCase()
+
+  if (a === b) return 0
+  if ([a, b].sort()[0] === a) return -1
   return 1
 }
