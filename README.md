@@ -118,8 +118,9 @@ import myStyle from './my-style'
 labcoat.style('style-name', myStyle)
 ```
 
+The two parameters are:
 1. ***name*** [required, string] is non-empty, and contains only *a&ndash;z, 0&ndash;9,* hyphen, and underscore.
-1. ***style*** [required, object] defines 3 methods, described in the [previous section](#registering-a-citation-style).
+1. ***style*** [required, object] has 3 methods, described in the [previous section](#creating-a-custom-citation-style).
 
 #### Using a citation style
 First, labcoat's basic citation style is an implicit default&mdash;it does not need to be declared in the markup. To use a custom style after you've registered it (see the # section), invoke its name in your markup, as follows:
