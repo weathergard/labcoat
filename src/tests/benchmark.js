@@ -4,7 +4,6 @@ import labcoat from '../../build'
 const HTML = fs.readFileSync(__dirname + '/../../benchmark.html', 'utf8')
 
 export default function () {
-  labcoat('warm up the engine')
   let perf = process.hrtime()
   let output = labcoat(HTML)
   let duration = process.hrtime(perf)
