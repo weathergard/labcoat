@@ -13,6 +13,7 @@ import * as basic from './citation-renderers/basic'
  * @return {String}
  */
 function transpiler (markup) {
+  if (!markup) return markup
   let content = article(markup)
   if (!content) return markup
   return (
