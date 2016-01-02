@@ -15,7 +15,7 @@ const DOE84 = JSON.stringify({
 const GOOD_HTML = [
   [ // Data undefined (should still transpile).
     '<citation doe84 /><bibliography></bibliography>',
-    '<cite><a href="#doe84"></a></cite>'+
+    '<cite class="in-text-citation"><a href="#doe84"></a></cite>'+
     '<section id="bibliography">'+
       '<ol class="bibliography-list">'+
         '<li id="doe84"></li>'+
@@ -24,7 +24,7 @@ const GOOD_HTML = [
   ],
   [ // Data empty (should still transpile).
     '<citation doe84 /><bibliography>[]</bibliography>',
-    '<cite><a href="#doe84"></a></cite>'+
+    '<cite class="in-text-citation"><a href="#doe84"></a></cite>'+
     '<section id="bibliography">'+
       '<ol class="bibliography-list">'+
         '<li id="doe84"></li>'+
@@ -34,11 +34,11 @@ const GOOD_HTML = [
   [ // Working case.
     '<citation doe84 />'+
     '<bibliography>['+ DOE84 +']</bibliography>',
-    '<cite><a href="#doe84">Doe, 1984</a></cite>'+
+    '<cite class="in-text-citation"><a href="#doe84">Doe 1984</a></cite>'+
     '<section id="bibliography">'+
       '<ol class="bibliography-list">'+
         '<li id="doe84">'+
-          'Doe, Jon. 1984. "The title".'+
+          'Doe, Jon. 1984. &#8220;The title&#8221;.'+
           '<a href="http://uni.edu/chem/jones/doc.pdf">http://uni.edu/chem/jones/doc.pdf</a>.'+
           'Accessed: 25-6-2015.</li>'+
       '</ol>'+
