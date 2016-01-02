@@ -11,7 +11,7 @@ Labcoat is a *fast,* idempotent, side-effect-free, pure function with no depende
 ## Prefatory comment on performance
 Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
 
-**Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, transpilation usually finishes in fewer than 600 microseconds (<0.6ms) on a 2.2ghz i7.
+**Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, and basic citation style, transpilation usually finishes in fewer than 950 microseconds (<1ms) on a 2.2ghz i7.
 
 <hr>
 
@@ -95,14 +95,34 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 </article>
 ```
 
-#### Citation style
-Labcoat offers a basic APA-like source citation formatting style, which is likely adequate for purposes of lay publishing. Additionally, a simple API allows registration of custom styles; provide a name, in-text, and full-length render functions:
+### Citation style
+Labcoat provides an APA-like citation style ("Lastname YYYY" in-text citations and an alphabetical bibliography), which is adequate for most lay writing. Additionally, labcoat's style API allows for easy use of custom styles.
 
+#### Creating a custom citation style
+A style is simply an object with three* methods for transforming bibliographic data into HTML5 citations. These three methods are:
+
+1. ***.inText( src )*** accepts an Object parameter and returns markup, to appear in-text.
+1. ***.full( src )*** accepts an Object parameter and returns `<li>` markup, to appear in the bibliography.
+1. ***.order( srcA, srcB )*** an [Array.sort callback](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) accepting two parameters of type Object and returning a Number.
+
+Consult [basic style](/src/citation-renderers/basic) for example code.
+
+\*If a style does not define `.inText()` or `.full()`, the basic style method will be used in it's place. If the `.order()` method is not defined, order defaults to the order of appearance in the body text (as in MLA style writing).
+
+#### Registering a citation style
+You can register as many custom styles as you like, and you may overwrite/update previously registered styles (even the provided basic style). Register as follows:
 ```js
-labcoat.style('chicago-alt', inText, full)
+// Anywhere in your app.
+import style from './style'
+
+labcoat.style(name, style)
 ```
 
-Both functions accept a single object parameter (a bibliography citation). Each function must transform the object and return a string (see the [basic renderer source code](/src/citation-renderers/basic.js)). To use the custom style, invoke its name as follows:
+1. ***name*** [required, string] is non-empty, and contains only *a&ndash;z, 0&ndash;9,* hyphen, and underscore.
+1. ***style*** [required, object] defines 3 methods, described in the [previous section](#registering-a-citation-style).
+
+#### Using a citation style
+First, labcoat's basic citation style is an implicit default&mdash;it does not need to be declared in the markup. To use a custom style after you've registered it (see the # section), invoke its name in your markup, as follows:
 
 ```html
 <bibliography chicago-alt>
@@ -111,7 +131,7 @@ Both functions accept a single object parameter (a bibliography citation). Each 
       "id":       {String},       // 'jones99'
       "firstname":{String},       // 'Jon'
       "lastname": {String},       // 'Jones'
-      "authors":  {String|Null|}  // For
+      "authors":  {String|}       // (Use for multiple authors)
       "year":     {Number},       // 1999
       "title":    {String},       // 'The title'
       "url":      {String},       // 'http://uni.edu/chem/jones/doc.pdf'
@@ -121,11 +141,6 @@ Both functions accept a single object parameter (a bibliography citation). Each 
   ]
 </bibliography>
 ```
-
-You can:
-* register as many styles as you please
-* overwrite previously registered styles as it suits you
-* pass a falsy value in place of a function to get basic style in its place
 
 ## &lt;diagram> + &lt;diagcaption> and &lt;diag />
 Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figure>` and `<figcaption>` elements; these will be automatically labeled, numbered, and ID'ed. Use the self-closing `<diag />` element to create in-text references to your diagrams, as shown here:
