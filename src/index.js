@@ -1,5 +1,5 @@
 import * as registry from './registry'
-import article from './transforms/article'
+import body from './transforms/body'
 import diagrams from './transforms/diagrams'
 import endnotes from './transforms/endnotes'
 import citations from './transforms/citations'
@@ -14,7 +14,7 @@ import * as basic from './citation-renderers/basic'
  */
 function transpiler (markup) {
   if (!markup) return markup
-  let content = article(markup)
+  let content = body(markup)
   if (!content) return markup
   return (
     markup.replace(content,
