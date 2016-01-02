@@ -1,8 +1,8 @@
-let rArticle = /<article[\s\S]*?<\/article\s*?>/
-let rTranspiled = /<article data-transpiled/
+let rMain = /<main[\s\S]*?<\/main\s*?>/
+let rTranspiled = /<main data-transpiled/
 
 /**
- * Finds the first <article> element in the markup and returns it.
+ * Finds the first <main> element in the markup and returns it.
  * @function
  * @param {String} markup
  * @return {String|Null}
@@ -10,7 +10,7 @@ let rTranspiled = /<article data-transpiled/
 export default function (markup) {
   if (rTranspiled.test(markup)) return null
   try {
-    return markup.match(rArticle)[0]
+    return markup.match(rMain)[0]
   } catch (err) {
     return null
   }
