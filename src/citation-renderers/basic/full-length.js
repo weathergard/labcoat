@@ -47,11 +47,11 @@ function periodical(source) {
   if (source.number) issue.push(`No. ${source.number}`)
   if (source.page) issue.push(`pp. ${source.page}`)
   if (issue.length) {
-    issue = `(${issue.join(', ')})`
+    issue = ` (${issue.join(', ')})`
   } else {
     issue = ''
   }
-  return `${name} ${issue}.`
+  return `${name}${issue}.`
 }
 
 /**
@@ -68,11 +68,11 @@ function conference(source) {
   if (source.number) issue.push(`No. ${source.number}`)
   if (source.page) issue.push(`pp. ${source.page}`)
   if (issue.length) {
-    issue = `(${issue.join(', ')})`
+    issue = ` (${issue.join(', ')})`
   } else {
     issue = ''
   }
-  return `${name} ${issue}.`
+  return `${name}${issue}.`
 }
 
 /**
