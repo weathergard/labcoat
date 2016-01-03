@@ -3,6 +3,8 @@ module.exports = {
   entry: './build/index.js',
   output: {
     path: __dirname + '/dist',
-    filename: 'labcoat.js'
+    filename: 'labcoat.js',
+    libraryTarget: "var",
+    library: "labcoat"
   }
 }
