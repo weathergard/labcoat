@@ -60,7 +60,7 @@ function periodical(source) {
  * @param {Object} source
  * @return {String}
  */
-functon conference(source) {
+function conference(source) {
   if (!source.conference) return ''
   let name = `Proceedings of <i>${source.conference}</i>`
   let issue = []
