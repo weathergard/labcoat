@@ -6,7 +6,7 @@ Labcoat is a *fast,* idempotent, side-effect-free, pure function with no depende
 
 1. in Node.js: `res.end(labcoat(html))`
 1. in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
-1. on the command line: `$ file.html | labcoat > file.html`
+1. on the command line: `labcoat file.html` (Coming soon.)
 
 ## Prefatory comment on performance
 Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
@@ -16,10 +16,10 @@ Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms on
 <hr>
 
 ## Install it.
-`npm install labcoat [-g]`
+`npm install labcoat`
 
 ## Start with &lt;main>
-Labcoat takes the standard HTML5 `<main>` element as its domain. That is, only material within an `<main>` will be transpiled from labcoat markup to HTML.
+Labcoat takes the standard HTML5 `<main>` element as its domain. That is, only material within an `<main>` will be transpiled from labcoat markup to HTML. In the unlikely event that transpilation fails, examine the helpful comment(s) left by the transpiler in the output HTML, just before the closing `</main>` tag.
 
 ## &lt;endnote> and &lt;endnotes />
 Use the `<endnote>` element to get reciprocally-linked end notes. Use the companion self-closing `<endnotes />` element to indicate where you want the notes to appear in the transpiled HTML.
@@ -59,15 +59,12 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
   <bibliography>
     [
       {
-        "id":        'chomsky93',
-        "firstname": 'Noam',
-        "lastname":  'Chomsky',
-        "authors":   null, // e.g. 'Chomsky, Noam, and Morris Halle'
-        "year":      1993,
-        "title":     'The Minimalist Program',
-        "publisher": 'MIT Press',
-        "url":       'http://uni.edu/ling/chomsky/mp.pdf',
-        "accessed":  '25-6-2015'
+        "id":         'chomsky93',
+        "firstname":  'Noam',
+        "lastname":   'Chomsky',
+        "year":       1993,
+        "title":      'The Minimalist Program',
+        "publisher":  'MIT Press'
       }
     ]
   </bibliography>
@@ -82,9 +79,7 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
   <section id="bibliography">
     <ol class="bibliography-list">
       <li id="chomsky93">
-        Chomsky, Noam. 1993. "The Minimalist Program".
-        <a href="http://uni.edu/ling/chomsky/mp.pdf">http://uni.edu/ling/chomsky/mp.pdf</a>.
-        Accessed: 25-6-2015.
+        Chomsky, Noam. (1993). The Minimalist Program. MIT Press.
       </li>
     </ol>
   </section>
@@ -92,10 +87,25 @@ The `<citation>` element and the companion `<bibliography>` element allow the cr
 ```
 
 ### Citation style
-Labcoat provides an APA-like citation style ("Lastname YYYY" in-text citations and an alphabetical bibliography), which is adequate for most lay writing. Additionally, labcoat's style API allows for easy use of custom styles.
+Labcoat provides a basic APA-like citation style ("Surname YYYY" in-text citations and an alphabetical bibliography), which is surely adequate for most lay writing. Basic style will make use of the following fields, if provided:
+
+1. **id** [required, string] must match the in-text citation id.
+1. **firstname** [string] is the author's first name, if there is a single author.
+1. **lastname** [string] is the author's surname, if there is a single author.
+1. **year** [string|number]
+1. **title** [string] is a book, article, or artwork title.
+1. **publisher** [string] is the print or electronic/web publisher.
+1. **authors** [string] is for multiple authors ("Chomsky & Halle").
+1. **url** [string]
+1. **accessed** [string] is the date a source was accessed.
+1. **periodical** [string] is a journal or magazine name.
+1. **conference** [string] is the name of a conference (to cite proceedings).
+1. **volume** [string|number]
+1. **number** [string|number]
+1. **page** [string|number] is either a single page or a range of pages.
 
 #### Creating a custom citation style
-A style is simply an object with three* methods for transforming bibliographic data into HTML5 citations. These three methods are:
+Labcoat's style API allows for easy use of custom styles. A style is simply an object with three* methods for transforming bibliographic data into HTML5 citations. These three methods are:
 
 1. ***.inText( src )*** accepts an Object parameter and returns markup, to appear in-text.
 1. ***.full( src )*** accepts an Object parameter and returns `<li>` markup, to appear in the bibliography.

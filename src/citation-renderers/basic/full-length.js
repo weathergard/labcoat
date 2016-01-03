@@ -33,6 +33,12 @@ function authorYear(source) {
   return ''
 }
 
+/**
+ * Creates a formatted periodical name, vol, num, and pages, string.
+ * @function
+ * @param {Object} source
+ * @return {String}
+ */
 function periodical(source) {
   if (!source.periodical) return ''
   let name = `${source.periodical}`
@@ -40,9 +46,41 @@ function periodical(source) {
   if (source.volume) issue.push(`Vol. ${source.volume}`)
   if (source.number) issue.push(`No. ${source.number}`)
   if (source.page) issue.push(`pp. ${source.page}`)
-  return `<i>${name}</i> (${issue.join(', ')}).`
+  if (issue.length) {
+    issue = `(${issue.join(', ')})`
+  } else {
+    issue = ''
+  }
+  return `${name} ${issue}.`
 }
 
+/**
+ * Creates a formatted conference proceedings, vol, num, and pages string.
+ * @function
+ * @param {Object} source
+ * @return {String}
+ */
+functon conference(source) {
+  if (!source.conference) return ''
+  let name = `Proceedings of <i>${source.conference}</i>`
+  let issue = []
+  if (source.volume) issue.push(`Vol. ${source.volume}`)
+  if (source.number) issue.push(`No. ${source.number}`)
+  if (source.page) issue.push(`pp. ${source.page}`)
+  if (issue.length) {
+    issue = `(${issue.join(', ')})`
+  } else {
+    issue = ''
+  }
+  return `${name} ${issue}.`
+}
+
+/**
+ * Prints the publisher name if defined.
+ * @function
+ * @param {Object} source
+ * @return {String}
+ */
 function publisher(source) {
   if (source.publisher) return `${source.publisher}.`
   return ''
@@ -90,6 +128,7 @@ const TRANSFORMS = [
   authorYear,
   title,
   periodical,
+  conference,
   publisher,
   url,
   accessed
