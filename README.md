@@ -130,7 +130,7 @@ The two parameters are:
 1. ***style*** [required, object] has 3 methods, described in the [previous section](#creating-a-custom-citation-style).
 
 #### Using a citation style
-First, labcoat's basic citation style is an implicit default&mdash;it does not need to be declared in the markup. To use a custom style after you've registered it (see the # section), invoke its name in your markup, as follows:
+First, labcoat's basic citation style is an implicit default&mdash;it does not need to be declared in the markup. To use a custom style after you've registered it (see the [previous section](#registering-a-citation-style)), invoke its name in your markup, as follows:
 
 ```html
 <bibliography style-name>
