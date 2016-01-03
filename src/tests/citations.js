@@ -38,7 +38,7 @@ const GOOD_HTML = [
     '<section id="bibliography">'+
       '<ol class="bibliography-list">'+
         '<li id="doe84">'+
-          'Doe, Jon. 1984. &#8220;The title&#8221;.'+
+          'Doe, Jon. (1984). The title.'+
           '<a href="http://uni.edu/chem/jones/doc.pdf">http://uni.edu/chem/jones/doc.pdf</a>.'+
           'Accessed: 25-6-2015.</li>'+
       '</ol>'+

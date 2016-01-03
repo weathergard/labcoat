@@ -25,10 +25,26 @@ function authorYear(source) {
   } else if (source.lastname) {
     author = `${source.lastname}`
   }
-  if (author && source.year) return `${author}. ${source.year}.`
-  if (author) return `${author}.`
-  if (source.title && source.year) return `"${source.title}", ${source.year}.`
+  if (author && author.slice(-1) !== '.') author += '.'
+  if (author && source.year) return `${author} (${source.year}).`
+  if (author) return `${author}`
+  if (source.title && source.year) return `"${source.title}". (${source.year}).`
   if (source.year) return `${source.year}.`
+  return ''
+}
+
+function periodical(source) {
+  if (!source.periodical) return ''
+  let name = `${source.periodical}`
+  let issue = []
+  if (source.volume) issue.push(`Vol. ${source.volume}`)
+  if (source.number) issue.push(`No. ${source.number}`)
+  if (source.page) issue.push(`pp. ${source.page}`)
+  return `<i>${name}</i> (${issue.join(', ')}).`
+}
+
+function publisher(source) {
+  if (source.publisher) return `${source.publisher}.`
   return ''
 }
 
@@ -41,7 +57,7 @@ function authorYear(source) {
 function title(source) {
   if (!source.title) return ''
   if (source.title && !(source.authors || source.lastname)) return ''
-  return `&#8220;${source.title}&#8221;.`
+  return `${source.title}.`
 }
 
 /**
@@ -73,6 +89,8 @@ const TRANSFORMS = [
   id,
   authorYear,
   title,
+  periodical,
+  publisher,
   url,
   accessed
 ]
