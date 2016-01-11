@@ -136,7 +136,7 @@ const HTML = [
 ]
 
 export default function () {
-  console.log('\n  Basic style citations tests:')
+  console.log('\n  MLA citations tests:')
   HTML.forEach((pair, index) => {
     let input = (
       '<citation doe84 />'+
