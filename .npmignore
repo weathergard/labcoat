@@ -3,3 +3,4 @@ build/tests
 benchmark.html
 build.sh
 webpack.config.js
+node_modules
