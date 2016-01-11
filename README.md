@@ -11,7 +11,7 @@ Labcoat is a *fast,* idempotent, side-effect-free, pure function with no depende
 ## Prefatory comment on performance
 Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
 
-**Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, and basic citation style, transpilation takes &approx;1 millisecond on a 2.2ghz Core i7 (node 5.x).
+**Benchmark:** Given a 5kb document making heavy use of labcoat features, with both latin and roman numbering, and APA citations, transpilation takes &approx;1 millisecond on a 2.2ghz Core i7 (node 5.x).
 
 <hr>
 
