@@ -22,10 +22,8 @@ function transpileCaption(diagram, num) {
   let diagcaption = diagram.match(rCaption)
   if (!diagcaption) return ''
   diagcaption = diagcaption[0].replace(rCaption, '$1')
-  return (
-    `<figcaption><span class="figure-label">Figure&nbsp;${num}
-    </span>&nbsp;${diagcaption}</figcaption>`
-  )
+  return '<figcaption><span class="figure-label">Figure&nbsp;' + num +
+    '</span>&nbsp;' + diagcaption + '</figcaption>'
 }
 
 /**
@@ -47,14 +45,14 @@ function transpile(markup) {
     let num = numbering(index + 1)
     let caption = transpileCaption(diagram, num)
     let inner = diagram.replace(rDiagram, '$2').replace(rCaption, caption)
-    let figure = `<figure id="figure-${num}">${inner}</figure>`
+    let figure = '<figure id="figure-' + num + '">' + inner + '</figure>'
     markup = markup.replace(diagram, figure)
   })
 
   let refs = (markup.match(rDiag) || []).forEach((ref) => {
     let ident = ref.match(rDiagId)[0].replace(rDiagId, '$1')
     let num = numbering(indices[ident])
-    let intext = `<a class="figure-reference" href="#figure-${num}">${num}</a>`
+    let intext = '<a class="figure-reference" href="#figure-' + num + '">' + num + '</a>'
     markup = markup.replace(ref, intext)
   })
   return markup
