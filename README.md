@@ -109,7 +109,7 @@ You can easily define custom citation styles, or extend an existing style, with 
 AUTHOR. (YEAR). <i>TITLE</i>. LOCATION: PUBLISHER.
 ```
 
-Examine the included [APA](/styles/apa) and [MLA](/styles/mla) styles to see a variety of real-life examples.
+Examine the included [APA](/src/styles/apa) and [MLA](/src/styles/mla) styles to see a variety of real-life examples.
 
 ```js
 // new-style.js
