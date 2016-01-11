@@ -17,5 +17,5 @@ export default function () {
 
 `
   )
-  assert(/transpilation failed/.test(output) === false, 'Transpilation should not fail.')
+  assert(/failed/.test(output) === false, 'Transpilation should not fail.')
 }
