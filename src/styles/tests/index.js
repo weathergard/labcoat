@@ -1,7 +1,7 @@
-import book from './book'
-// import chapter from './chapter'
-// import anthology from './anthology'
+import apa from './apa'
+import mla from './mla'
 
 export default function () {
-  book()
+  apa()
+  mla()
 }
