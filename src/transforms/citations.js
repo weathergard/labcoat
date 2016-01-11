@@ -1,6 +1,33 @@
 import * as registry from '../registry'
+import citeFormat from 'cite-format'
 let rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography>/
 let rCitation = /<citation\s([^>]+?)\s?\/>/g
+
+function duckType(source) {
+  if (!source.type) source.type = 'book'
+}
+
+function full(source, style) {
+  duckType(source)
+  let format = style.full[source.type]
+  try {
+    return '<li id="' + source.id + '">' + citeFormat(source, format) + '</li>'
+  } catch (err) {
+    return '\n<!-- Failed to interpolate citation ' + source.id + '. \n' + err.stack + '\n -->\n'
+  }
+}
+
+function inText(source, style) {
+  try {
+    return ''+
+      '<cite class="in-text-citation">'+
+        '<a href="#' + source.id + '">' + citeFormat(source, style.inText) + '</a>'+
+      '</cite>'
+  } catch (err) {
+    return '\n<!-- Failed to interpolate citation ' + source.id + '. \n' + err.stack + '\n -->\n'
+  }
+}
+
 
 /**
  * Turns an array into an object (keyed by <array-element>.id).
@@ -43,23 +70,14 @@ function getBibData(markup) {
  * @return {Object}
  * @note Missing render functions individiually default to basic-style.
  */
-function getRenderers(markup) {
+function getStyle(markup) {
   let style = (
     markup
       .match(rBib)
       .shift()
-      .replace(rBib, '$1') || 'basic'
+      .replace(rBib, '$1') || 'apa'
   )
-  let basic = registry.get('styles', 'basic')
-  if (style === 'basic') {
-    return basic
-  } else {
-    let rndr = registry.get('styles', style) || {}
-    if (!rndr.inText) rndr.inText = basic.inText
-    if (!rndr.full) rndr.full = basic.full
-    if (!rndr.order) rndr.order = function () {return 0}
-    return rndr
-  }
+  return registry.get('styles', style)
 }
 
 /**
@@ -72,11 +90,11 @@ function transpile(markup) {
   let matches = markup.match(rCitation)
   if (!matches) return markup
   let bib = getBibData(markup)
-  let rndr = getRenderers(markup)
+  let style = getStyle(markup)
   let refs = matches.map((element) => {
     let id = element.replace(rCitation, '$1')
     let source = bib[id] || {id: id}
-    markup = markup.replace(element, rndr.inText(source))
+    markup = markup.replace(element, inText(source, style))
     return source
   })
   refs = refs.filter((item, index) => {
@@ -84,13 +102,10 @@ function transpile(markup) {
   })
   let li = (
     refs
-      .sort(rndr.order)
-      .map(source => rndr.full(source))
+      .sort(style.order)
+      .map(source => full(source, style))
   )
-  let bibSection = `<section id="bibliography">
-      <ol class="bibliography-list">${li.join('')}
-      </ol>
-    </section>`
+  let bibSection = '<section id="bibliography"><ol class="bibliography-list">' + li.join('') + '</ol></section>'
   return markup.replace(rBib, bibSection)
 }
 
