@@ -1,5 +1,6 @@
 import * as registry from './registry'
 import apa from './styles/apa'
+import mla from './styles/mla'
 import * as orders from './styles/orders'
 import body from './transforms/body'
 import diagrams from './transforms/diagrams'
@@ -62,4 +63,5 @@ transpiler.style = function (style) {
 }
 
 transpiler.style(apa)
+transpiler.style(mla)
 export default transpiler
