@@ -800,10 +800,10 @@ var labcoat =
 	    .replace(/\.+/g, '.').replace(/\(\./g, '.').replace(/\[\./g, ']')
 
 	    // Colons
-	    .replace(/:+/g, ':').replace(/:\./g, '.').replace(/:,/g, ',').replace(/:\)/g, ')').replace(/\(:/g, '(').replace(/:\]/g, ']').replace(/\[:/g, '[')
+	    .replace(/:+/g, ':').replace(/:\./g, '.').replace(/:,/g, ',').replace(/:\)/g, ')').replace(/\(:/g, '(').replace(/:\]/g, ']').replace(/\[:/g, '[').replace(/:([^\s\/])/g, ': $1')
 
 	    // Spaces
-	    .replace(/\(\s/g, '(').replace(/\s\)/g, ')').replace(/\[\s/g, '[').replace(/\s\]/g, ']').replace(/([,:])([^\s])/g, '$1 $2').replace(/\s([\.,:])/g, '$1').replace(/\s+$/, '')
+	    .replace(/\(\s/g, '(').replace(/\s\)/g, ')').replace(/\[\s/g, '[').replace(/\s\]/g, ']').replace(/,([^\s])/g, ', $1').replace(/\s([\.,:])/g, '$1').replace(/\s+$/, '')
 
 	    // Left edge
 	    .replace(/^[\[\],.:()\s]+/g, '')

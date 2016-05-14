@@ -1,6 +1,6 @@
 {
   "name": "labcoat",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Enhance HTML with scholarly bibliographic and annotation features.",
   "main": "./build/index.js",
   "scripts": {
@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/weathergard/labcoat#readme",
   "dependencies": {
-    "cite-format": "^0.0.5"
+    "cite-format": "0.0.6"
   }
 }
