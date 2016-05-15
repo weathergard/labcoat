@@ -1,0 +1,305 @@
+body {
+  background: #fbfbfb;
+  color: #333;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+  margin: 0;
+}
+
+a {
+  color:rgb(107, 133, 173);
+  font-style: normal;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(107, 133, 173, 0.17);
+}
+
+h1 {
+  font-size: 36px;
+}
+
+pre, code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+header{
+  background: rgb(37, 37, 37);
+  padding: 25px calc(3% + 15px);
+  height: 75px;
+}
+
+section {
+  dipsplay: block;
+  float: none;
+  clear:both;
+  min-height: 25px;
+  padding: 25px calc(3% + 15px) 35px;
+  overflow: hidden;
+}
+
+section.working {
+  position: relative;
+  background-color: #aaa;
+  background-image: url('../img/working.jpg');
+  background-size: cover;
+  background-position: bottom center;
+  color: white;
+  z-index: 0;
+  padding-top: 4em;
+  padding-bottom: 4em;
+}
+
+section.working:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.25);
+  z-index: -1;
+}
+
+section.white {
+  background: #fbfbfb;
+  color: #333;
+}
+
+section.gray {
+  background: #888;
+  color: white;
+}
+
+section.black {
+  background: #222;
+  color: #f0f0f0;
+}
+
+section.blue {
+  background: #718ebc;
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.large {
+  font-size: 30px;
+}
+
+#logo {
+  display: block;
+  width: 256px;
+  opacity: 0.95;
+  float: left;
+}
+
+header > nav {
+  display: block;
+  float: right;
+  line-height: 75px;
+  margin-right: 2.5%;
+}
+
+header > nav a {
+  color: white;
+  margin-left: 1em;
+  font-size: 24px;
+  border: none;
+  opacity: 0.75;
+}
+
+header > nav a:hover {
+  opacity: 1;
+}
+
+#input-label,
+#output-label {
+  display: block;
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 5px 12px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#input-label {
+  background: #444;
+  color: #ddd;
+}
+
+#output-label {
+  background: #ddd;
+  color: #555;
+}
+
+.editor {
+  display: block;
+  float:left;
+  min-height: 550px;
+  font-size: 13px;
+  font-family: 'Source Code Pro', monospace;
+  line-height: 1.5;
+  border: none;
+  border-radius: 1px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  color: #eee;
+  margin: 0 auto;
+  background: #333;
+  width: 50%;
+}
+
+.editor:focus {
+  outline-width: 0;
+}
+
+#output {
+  min-height: 550px;
+  width: 50%;
+  position: relative;
+  background: #f0f0f0;
+  font-size: 16px;
+  display: block;
+  float: left;
+  overflow: hidden;
+  padding: 25px;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+#output section {
+  margin: 0;
+  padding: 0;
+}
+
+#output h4 {
+  padding: 0;
+  margin: 1.33em 0 0.33em 0;
+  font-weight: 600;
+}
+
+#output h1 {
+  font-size: 30px;
+  margin: 0.33em 0;
+  font-weight: 600;
+}
+
+#output img {
+  width: 100%;
+}
+
+ol {
+  margin: 0;
+  padding-left: 1em;
+}
+
+.bibliography-list {
+  list-style: none;
+  padding: 0;
+}
+
+.bibliography-list li {
+  text-indent: -25px;
+  margin-left: 25px;
+}
+
+#output hr {
+  border: none;
+  border-bottom: 1px solid #777;
+}
+
+a[id^=intext-note-] {
+  margin-left: 1px;
+  border: none;
+}
+
+a[id^=intext-note-]:hover {
+  background: #eee;
+}
+
+figure {
+  padding: 0;
+  margin: 0;
+}
+
+figcaption {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  top: 0;
+}
+
+.figure-label {
+  font-weight: 600;
+  margin-right: 3px;
+}
+
+#footer {
+  background: #484848;
+  color: #ccc;
+  font-size: 16px;
+}
+
+.copy-left {
+  display: inline-block;
+  text-align: right;
+  margin: 0px;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: FlipH;
+}
+
+#features hr {
+  border-color: transparent;
+}
+
+.feature {
+  width: 50%;
+  padding: 0 0 40px 0;
+  float:left;
+  box-sizing: border-box;
+  padding-right: 2em;
+  line-height: 1.76;
+}
+
+.feature h3 {
+  text-transform: uppercase;
+  font-size: 26px;
+}
+
+.feature code {
+  display: inline-block;
+  padding: 0 10px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 3px;;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 15px;
+  background: #222;
+  color: #eee;
+  font-weight: 600;
+  font-size: 24px;
+  border-radius: 1px;
+}
+
+.button:hover {
+  background: white;
+  color: #333;
+}
