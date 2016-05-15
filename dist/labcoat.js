@@ -391,8 +391,8 @@ var labcoat =
 
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
-	var rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram>/g;
-	var rCaption = /<diagcaption>([\s\S]*?)<\/diagcaption>/;
+	var rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g;
+	var rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/;
 	var rDiag = /<diag\s*?([^>]*?)\s*?\/>/g;
 	var rDiagId = /<diag\s*?([^>]*?)\s*?\/>/;
 

@@ -1,8 +1,8 @@
 import romanNumeral from '../numbering/roman'
 import latinNumeral from '../numbering/latin'
 
-let rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram>/g
-let rCaption = /<diagcaption>([\s\S]*?)<\/diagcaption>/
+let rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g
+let rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/
 let rDiag = /<diag\s*?([^>]*?)\s*?\/>/g
 let rDiagId = /<diag\s*?([^>]*?)\s*?\/>/
 
