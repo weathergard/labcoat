@@ -522,7 +522,7 @@ var labcoat =
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
 	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g;
-	var rEndNotes = /<endnotes\s([^>]*?)\s*?\/>/;
+	var rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
