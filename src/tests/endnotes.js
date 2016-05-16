@@ -22,7 +22,7 @@ const HTML = [
     '<section class="endnotes"><ol class="endnotes-list"></ol></section>'
   ],
   [
-    '<endnote>Contents</endnote><endnotes />',
+    '<endnote>Contents</endnote><endnotes/>',
     '<sup><a id="intext-note-1" href="#endnote-1">1</a></sup>'+
     '<section class="endnotes">'+
       '<ol class="endnotes-list">'+

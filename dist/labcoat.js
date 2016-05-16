@@ -557,7 +557,7 @@ var labcoat =
 	    markup = markup.replace(note, ref);
 	  });
 	  var li = notes.map(function (note) {
-	    return note.replace(/<\/?endnote>/g, '');
+	    return note.replace(/<\/?endnote\s*>/g, '');
 	  }).map(function (note, index) {
 	    var num = numbering(index + 1);
 	    return '<li><a id="endnote-' + num + '" href="#intext-note-' + num + '">' + note + '</a></li>';

@@ -36,7 +36,7 @@ function transpile(markup) {
   })
   let li = notes
     .map((note) => {
-      return note.replace(/<\/?endnote>/g, '')
+      return note.replace(/<\/?endnote\s*>/g, '')
     })
     .map((note, index) => {
       let num = numbering(index + 1)
