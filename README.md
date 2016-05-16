@@ -178,29 +178,3 @@ Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figu
 
 #### Numbering style options
 The default numbering style is plain integers. You may specify otherwise by providing either a `latin-diagrams` or `roman-diagrams` attribute to the enclosing `<main>` element, as follows: `<main latin-diagrams>`.
-
-## Future Additions
-### &lt;example> and &lt;ex />
-Use the `<example>` element to get automatically-numbered example cases, and use the companion self-closing `<ex />` element with an attribute (see below) to get in-text numeric references to your examples.
-
-```html
-<main>
-  <example ecp-violation>
-    John is illegal to park here.
-  </example>
-  <p>Here we have example (<ex ecp-violation />).</p>
-</main>
-```
-
-#### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
-
-```html
-<main>
-  <div class="example" id="ecp-violation">
-    <span class="example-number">1</span> John is illegal to park here.
-  </div>
-  <p>Here we have example (<a href="#ecp-violation">1</a>).</p>
-</main>
-```
-#### Numbering style options
-The default numbering style is plain integers. You may specify otherwise by providing either a `latin-examples` or `roman-examples` attribute on the enclosing main element, as follows: `<main latin-examples>`.
