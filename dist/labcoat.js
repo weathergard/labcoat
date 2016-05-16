@@ -665,26 +665,10 @@ var labcoat =
 	        });
 	      }
 	    });
-	    console.log(output);
 	    output = mapBibData(output);
 	  }
 	  return output;
 	}
-
-	// console.log(
-	//   getBibData(`<bibliography>
-	// [{
-	//   "id": "chomsky57",
-	//   "type": "book",
-	//   "author": "Chomsky, Noam",
-	//   "year": "1957",
-	//   "title": "Syntactic Structures",
-	//   "publisher": "Mouton",
-	//   "location": "New York"
-	// }]
-	// </bibliography>`)
-	// )
-	// process.exit()
 
 	/**
 	 * Retrieves the <bibliography> tag attribute to get the citation render

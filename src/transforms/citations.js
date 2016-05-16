@@ -76,7 +76,6 @@ function getBibData(markup) {
         })
       }
     })
-    console.log(output)
     output = mapBibData(output)
   }
   return output
