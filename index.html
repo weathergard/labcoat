@@ -8,7 +8,7 @@
 </head>
 <body>
   <header>
-    <img id="logo" src="img/logotype.png">
+    <a href="index.html"><img id="logo" src="img/logotype.png"></a>
     <nav>
       <a href="https://github.com/weathergard/labcoat">Contribute</a>
       <a href="https://github.com/weathergard/labcoat/issues">Support</a>
@@ -37,25 +37,29 @@
 <!-- ======================================================================= -->
 <textarea class="editor" spellcheck="false"><diagram fsa>
   <img src="https://placehold.it/650x100">
-  <diagcaption>Text in here</diagcaption>
+  <diagcaption>Write a caption.</diagcaption>
 </diagram>
 
-Cf. Fig. <diag fsa/> above (<citation chomsky57/>).<endnote>Notes are linked.</endnote>
+<p>Refer to figure <diag fsa/>.</p>
+
+<p>Make an end note.<endnote>Notes are linked.</endnote></p>
+
+<p>Cite a source (<citation chomsky57/>).</p>
 
 <h4>Notes</h4>
 <endnotes/>
 
 <h4>References</h4>
 <bibliography>
-[{
-  id: "chomsky57",
-  type: "book",
-  author: "Chomsky, Noam",
-  year: "1957",
-  title: "Syntactic Structures",
-  publisher: "Mouton",
-  location: "New York"
-}]
+
+  { id: "chomsky57",
+    type: "book",
+    author: "Chomsky, Noam",
+    year: "1957",
+    title: "Syntactic Structures",
+    publisher: "Mouton",
+    location: "New York" }
+
 </bibliography></textarea>
 <!-- ======================================================================= -->
 
@@ -107,12 +111,41 @@ Cf. Fig. <diag fsa/> above (<citation chomsky57/>).<endnote>Notes are linked.</e
     </div>
   </section>
 
-  <section id="footer">
-    <h2>Use it in the browser or in node.js</h2>
-    <p>
-      You can pipe your HTML through labcoat with a simple express middleware,
-      or just by including the script tag in your HTML documents.
-    </p>
+  <section id="basic-guide" class="white">
+    <div class="container">
+      <h2>Transpile on the server or client.</h2>
+      <p>
+        It&#8217;s best to transpile on the server if you can, but the js file
+        is small (&approx;5.5KB zipped) and runs fast. Even budget mobiles
+        can be expected to perform pretty well.
+      </p>
+      <h3>In node.js:</h3>
+<pre>
+npm install labcoat --save
+</pre>
+
+      <p>Then:</p>
+<pre>
+var http = require('http')
+var labcoat = require('labcoat')
+
+http.createServer(function (req, res) {
+  res.end(labcoat('&lt;html>&hellip;'))
+}).listen(3000)
+</pre>
+
+      <h3>In the browser:</h3>
+<pre>
+  &vellip;
+  &lt;script src="/js/labcoat.min.js">&lt;/script>
+  &lt;script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.innerHTML = labcoat(document.body.innerHTML)
+    })
+  &lt;/script>
+&lt;/body>
+</pre>
+    </div>
   </section>
 
   <section id="footer">
