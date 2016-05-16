@@ -24,7 +24,7 @@ function transpiler (markup) {
         diagrams(
           citations(
             endnotes(
-              content
+              content.replace(/\s+/g, ' ')
             )
           )
         )

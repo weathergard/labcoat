@@ -101,7 +101,7 @@ var labcoat =
 	  if (!markup) return markup;
 	  var content = (0, _transformsBody2['default'])(markup);
 	  if (!content) return markup;
-	  return markup.replace(content, (0, _transformsIdempotentiate2['default'])((0, _transformsDiagrams2['default'])((0, _transformsCitations2['default'])((0, _transformsEndnotes2['default'])(content)))));
+	  return markup.replace(content, (0, _transformsIdempotentiate2['default'])((0, _transformsDiagrams2['default'])((0, _transformsCitations2['default'])((0, _transformsEndnotes2['default'])(content.replace(/\s+/g, ' '))))));
 	}
 
 	/**
@@ -522,7 +522,7 @@ var labcoat =
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
 	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g;
-	var rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
+	var rEndNotes = /<endnotes\s([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
