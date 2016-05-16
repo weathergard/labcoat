@@ -1,11 +1,11 @@
 {
   "name": "labcoat",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Enhance HTML with scholarly bibliographic and annotation features.",
   "main": "./build/index.js",
   "scripts": {
     "build": "sh ./build.sh",
-    "test": "node build/tests"
+    "test": "npm run build && node build/tests"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "transpiler"
   ],
   "author": "Jeff McMahan <jeffrey.lee.mcmahan@gmail.com> (http://jeffmcmahan.info)",
-  "license": "ISC",
+  "license": "GNU AGPLv3",
   "bugs": {
     "url": "https://github.com/weathergard/labcoat/issues"
   },
