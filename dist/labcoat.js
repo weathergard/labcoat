@@ -522,7 +522,7 @@ var labcoat =
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
 	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g;
-	var rEndNotes = /<endnotes\s([^>]*?)\s*?\/>/;
+	var rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
@@ -599,7 +599,7 @@ var labcoat =
 
 	var _citeFormat2 = _interopRequireDefault(_citeFormat);
 
-	var rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography>/;
+	var rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/;
 	var rCitation = /<citation\s([^>]+?)\s?\/>/g;
 
 	function duckType(source) {

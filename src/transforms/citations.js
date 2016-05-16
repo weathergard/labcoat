@@ -1,7 +1,7 @@
 import * as registry from '../registry'
 import citeFormat from 'cite-format'
 
-let rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography>/
+let rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/
 let rCitation = /<citation\s([^>]+?)\s?\/>/g
 
 function duckType(source) {
