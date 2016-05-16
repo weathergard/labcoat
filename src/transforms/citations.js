@@ -59,14 +59,14 @@ function getBibData(markup) {
       markup
         .match(rBib)[0]
         .replace(rBib, '$2')
-        .replace(/(^\[)|(\]$)/g, '')
+        .replace(/(^\s*\[)|(\]\s*$)/g, '')
         .replace(/({|,)\s*([A-z0-9_-]+):/g, '$1"$2":') // <- Add prop name quotes.
+        .replace(/,\s*}/g, '}') // <-- Remove bad trailing commas.
     )
     if (!bib) return output
     bib.split(/}\s*,\s*{/g).forEach((record) => {
-      if (record[0] !== '{') record = '{' + record
-      if (record.slice(-1) !== '}') record += '}'
-      record.replace(/,\s*}/g, '}') // <-- Remove trailing comma.
+      if (!/^\s*{/.test(record)) record = '{' + record
+      if (!/}\s*$/.test(record)) record += '}'
       try {
         output.push(JSON.parse(record))
       } catch (err) {
@@ -76,10 +76,26 @@ function getBibData(markup) {
         })
       }
     })
+    console.log(output)
     output = mapBibData(output)
   }
   return output
 }
+
+// console.log(
+//   getBibData(`<bibliography>
+// [{
+//   "id": "chomsky57",
+//   "type": "book",
+//   "author": "Chomsky, Noam",
+//   "year": "1957",
+//   "title": "Syntactic Structures",
+//   "publisher": "Mouton",
+//   "location": "New York"
+// }]
+// </bibliography>`)
+// )
+// process.exit()
 
 
 /**
