@@ -13,12 +13,12 @@
       <a href="https://github.com/weathergard/labcoat">Contribute</a>
       <a href="https://github.com/weathergard/labcoat/issues">Support</a>
       <a href="https://github.com/weathergard/labcoat/blob/master/README.md">Guide</a>
-      <a href="#">About</a>
+      <a href="about.html">About</a>
     </nav>
   </header>
   <section class="working">
     <div class="container">
-      <h1>Maintainable academic HTML.</h1>
+      <h1>Academic HTML for Node.js and the browser.</h1>
       <p class="large">
         Enhance HTML5 with features inspired by TeX&mdash;automatic numbering,
         reciprocal links, easy figure references, pluggable citation styles,
@@ -32,6 +32,7 @@
     <h2>Try it. Edit some HTML:</h2>
     <div id="input-label">Input</div>
     <div id="output-label">Ouput</div>
+
 
 <!-- ======================================================================= -->
 <textarea class="editor" spellcheck="false"><diagram fsa>
@@ -47,16 +48,17 @@ Cf. Fig. <diag fsa/> above (<citation chomsky57/>).<endnote>Notes are linked.</e
 <h4>References</h4>
 <bibliography>
 [{
-  "id": "chomsky57",
-  "type": "book",
-  "author": "Chomsky, Noam",
-  "year": "1957",
-  "title": "Syntactic Structures",
-  "publisher": "Mouton",
-  "location": "New York"
+  id: "chomsky57",
+  type: "book",
+  author: "Chomsky, Noam",
+  year: "1957",
+  title: "Syntactic Structures",
+  publisher: "Mouton",
+  location: "New York"
 }]
 </bibliography></textarea>
 <!-- ======================================================================= -->
+
 
       <div class="container">
         <div id="output"></div>
@@ -103,6 +105,14 @@ Cf. Fig. <diag fsa/> above (<citation chomsky57/>).<endnote>Notes are linked.</e
         </code>
       </div>
     </div>
+  </section>
+
+  <section id="footer">
+    <h2>Use it in the browser or in node.js</h2>
+    <p>
+      You can pipe your HTML through labcoat with a simple express middleware,
+      or just by including the script tag in your HTML documents.
+    </p>
   </section>
 
   <section id="footer">
