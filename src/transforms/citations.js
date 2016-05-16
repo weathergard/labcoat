@@ -38,8 +38,8 @@ function inText(source, style) {
  */
 function mapBibData (bib) {
   let obj = {}
-  bib.forEach((source) => {
-    obj[source.id] = source
+  bib.forEach((source, index) => {
+    if ('id' in source) obj[source.id] = source
   })
   return obj
 }
@@ -52,16 +52,35 @@ function mapBibData (bib) {
  */
 function getBibData(markup) {
   let bib
+    , output = []
+
   if (rBib.test(markup)) {
-    bib = markup.match(rBib)[0].replace(rBib, '$2')
-    try {
-      bib = mapBibData(JSON.parse(bib))
-    } catch (err) {
-      bib = []
-    }
+    bib = (
+      markup
+        .match(rBib)[0]
+        .replace(rBib, '$2')
+        .replace(/(^\[)|(\]$)/g, '')
+        .replace(/({|,)\s*([A-z0-9_-]+):/g, '$1"$2":') // <- Add prop name quotes.
+    )
+    if (!bib) return output
+    bib.split(/}\s*,\s*{/g).forEach((record) => {
+      if (record[0] !== '{') record = '{' + record
+      if (record.slice(-1) !== '}') record += '}'
+      record.replace(/,\s*}/g, '}') // <-- Remove trailing comma.
+      try {
+        output.push(JSON.parse(record))
+      } catch (err) {
+        output.push({
+          input: record,
+          err: err
+        })
+      }
+    })
+    output = mapBibData(output)
   }
-  return bib
+  return output
 }
+
 
 /**
  * Retrieves the <bibliography> tag attribute to get the citation render

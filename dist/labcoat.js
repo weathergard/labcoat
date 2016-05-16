@@ -632,8 +632,8 @@ var labcoat =
 	 */
 	function mapBibData(bib) {
 	  var obj = {};
-	  bib.forEach(function (source) {
-	    obj[source.id] = source;
+	  bib.forEach(function (source, index) {
+	    if ('id' in source) obj[source.id] = source;
 	  });
 	  return obj;
 	}
@@ -645,16 +645,29 @@ var labcoat =
 	 * @return {Object}
 	 */
 	function getBibData(markup) {
-	  var bib = undefined;
+	  var bib = undefined,
+	      output = [];
+
 	  if (rBib.test(markup)) {
-	    bib = markup.match(rBib)[0].replace(rBib, '$2');
-	    try {
-	      bib = mapBibData(JSON.parse(bib));
-	    } catch (err) {
-	      bib = [];
-	    }
+	    bib = markup.match(rBib)[0].replace(rBib, '$2').replace(/(^\[)|(\]$)/g, '').replace(/({|,)\s*([A-z0-9_-]+):/g, '$1"$2":') // <- Add prop name quotes.
+	    ;
+	    if (!bib) return output;
+	    bib.split(/}\s*,\s*{/g).forEach(function (record) {
+	      if (record[0] !== '{') record = '{' + record;
+	      if (record.slice(-1) !== '}') record += '}';
+	      record.replace(/,\s*}/g, '}'); // <-- Remove trailing comma.
+	      try {
+	        output.push(JSON.parse(record));
+	      } catch (err) {
+	        output.push({
+	          input: record,
+	          err: err
+	        });
+	      }
+	    });
+	    output = mapBibData(output);
 	  }
-	  return bib;
+	  return output;
 	}
 
 	/**

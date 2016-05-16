@@ -10,6 +10,15 @@ const GOOD_HTML = [
         '<li id="doe84"></li>'+
       '</ol>'+
     '</section>'
+  ],
+  [ // Relaxed JSON
+    '<citation doe84 /><bibliography>[{id: "doe84",}]</bibliography>',
+    '<cite class="in-text-citation"><a href="#doe84"></a></cite>'+
+    '<section id="bibliography">'+
+      '<ol class="bibliography-list">'+
+        '<li id="doe84"></li>'+
+      '</ol>'+
+    '</section>'
   ]
 ]
 
@@ -20,6 +29,7 @@ export default function () {
       pair[1].replace(/\s/g, '')
     )
   })
+  console.log('  ✔ Relaxed JSON')
   console.log('  ✔ <citation />')
   console.log('  ✔ <bibliography>')
 }
