@@ -2,7 +2,7 @@ import * as registry from '../registry'
 import citeFormat from 'cite-format'
 
 let rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/
-let rCitation = /<citation\s([^>]+?)\s?\/>/g
+  , rCitation = /<citation\s([^>]+?)\s?\/>/g
 
 function duckType(source) {
   if (!source.type) source.type = 'book'
@@ -97,7 +97,9 @@ function getStyle(markup) {
       .shift()
       .replace(rBib, '$1') || 'apa'
   )
-  return registry.get('styles', style)
+  let theStyle = registry.get('styles', style)
+  if (theStyle) return theStyle
+  return registry.get('styles', 'apa')
 }
 
 /**
@@ -110,13 +112,13 @@ function transpile(markup) {
   let matches = markup.match(rCitation)
   if (!matches) return markup
   let bib = getBibData(markup)
-  let style = getStyle(markup)
-  let refs = matches.map((element) => {
-    let id = element.replace(rCitation, '$1')
-    let source = bib[id] || {id: id}
-    markup = markup.replace(element, inText(source, style))
-    return source
-  })
+    , style = getStyle(markup)
+    , refs = matches.map((element) => {
+      let id = element.replace(rCitation, '$1')
+      let source = bib[id] || {id: id}
+      markup = markup.replace(element, inText(source, style))
+      return source
+    })
   refs = refs.filter((item, index) => {
     return refs.indexOf(item) === index
   })

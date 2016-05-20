@@ -1,5 +1,5 @@
 let rMain = /<main[\s\S]*?<\/main\s*?>/
-let rTranspiled = /<main data-transpiled/
+  , rTranspiled = /<main data-transpiled/
 
 /**
  * Finds the first <main> element in the markup and returns it.

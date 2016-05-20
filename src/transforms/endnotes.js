@@ -2,7 +2,7 @@ import romanNumeral from '../numbering/roman'
 import latinNumeral from '../numbering/latin'
 
 let rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g
-let rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/
+  , rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/
 
 /**
  * Determines what kind of numbering is in use.

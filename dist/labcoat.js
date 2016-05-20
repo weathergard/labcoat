@@ -350,8 +350,8 @@ var labcoat =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var rMain = /<main[\s\S]*?<\/main\s*?>/;
-	var rTranspiled = /<main data-transpiled/;
+	var rMain = /<main[\s\S]*?<\/main\s*?>/,
+	    rTranspiled = /<main data-transpiled/;
 
 	/**
 	 * Finds the first <main> element in the markup and returns it.
@@ -391,10 +391,10 @@ var labcoat =
 
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
-	var rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g;
-	var rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/;
-	var rDiag = /<diag\s*?([^>]*?)\s*?\/>/g;
-	var rDiagId = /<diag\s*?([^>]*?)\s*?\/>/;
+	var rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g,
+	    rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/,
+	    rDiag = /<diag\s*?([^>]*?)\s*?\/>/g,
+	    rDiagId = /<diag\s*?([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
@@ -410,11 +410,66 @@ var labcoat =
 	  };
 	}
 
+	/**
+	 *
+	 * @param {} diagram
+	 * @param {} num
+	 * @function
+	 * @return {Function}
+	 */
 	function transpileCaption(diagram, num) {
 	  var diagcaption = diagram.match(rCaption);
 	  if (!diagcaption) return '';
 	  diagcaption = diagcaption[0].replace(rCaption, '$1');
 	  return '<figcaption><span class="figure-label">Figure&nbsp;' + num + '</span>&nbsp;' + diagcaption + '</figcaption>';
+	}
+
+	function getDiagramNumberById(diagrams, id) {
+	  var number = '?';
+	  diagrams.forEach(function (diagram) {
+	    if (diagram.id === id) {
+	      number = diagram.number.toString();
+	    }
+	  });
+	  return number;
+	}
+
+	function transpileDiagrams(markup) {
+	  var numbering = numerals(markup || '');
+	  var diagrams = markup.match(rDiagram).map(function (diagram, i) {
+	    return {
+	      markup: diagram,
+	      index: i,
+	      number: numbering(i + 1),
+	      id: diagram.replace(rDiagram, '$1').replace(/\s/g, '')
+	    };
+	  });
+	  diagrams.forEach(function (diagram) {
+	    var caption = transpileCaption(diagram.markup, diagram.number),
+	        inner = diagram.markup.replace(rDiagram, '$2').replace(rCaption, caption),
+	        figure = '<figure id="figure-' + diagram.number + '">' + inner + '</figure>';
+	    markup = markup.replace(diagram.markup, figure);
+	  });
+	  return {
+	    markup: markup,
+	    model: diagrams
+	  };
+	}
+
+	function transpileDiags(markup, diagrams) {
+	  var diags = markup.match(rDiag) || [];
+	  diags = diags.map(function (diag) {
+	    return {
+	      id: diag.replace(rDiagId, '$1').replace(/\s/g, ''),
+	      markup: diag
+	    };
+	  });
+	  diags.forEach(function (diag) {
+	    var number = getDiagramNumberById(diagrams, diag.id),
+	        intext = '<a class="figure-reference" href="#figure-' + number + '">' + number + '</a>';
+	    markup = markup.replace(diag.markup, intext);
+	  });
+	  return markup;
 	}
 
 	/**
@@ -424,29 +479,8 @@ var labcoat =
 	 * @return {String}
 	 */
 	function transpile(markup) {
-	  var matches = markup.match(rDiagram);
-	  if (!matches) return markup;
-	  var indices = {};
-	  var numbering = numerals(markup);
-	  matches.forEach(function (diagram, index) {
-	    var ident = diagram.match(rDiagram);
-	    if (!ident || !ident[0].length) return markup;
-	    ident = ident[0].replace(rDiagram, '$1');
-	    indices[ident] = index + 1;
-	    var num = numbering(index + 1);
-	    var caption = transpileCaption(diagram, num);
-	    var inner = diagram.replace(rDiagram, '$2').replace(rCaption, caption);
-	    var figure = '<figure id="figure-' + num + '">' + inner + '</figure>';
-	    markup = markup.replace(diagram, figure);
-	  });
-
-	  var refs = (markup.match(rDiag) || []).forEach(function (ref) {
-	    var ident = ref.match(rDiagId)[0].replace(rDiagId, '$1');
-	    var num = numbering(indices[ident]);
-	    var intext = '<a class="figure-reference" href="#figure-' + num + '">' + num + '</a>';
-	    markup = markup.replace(ref, intext);
-	  });
-	  return markup;
+	  var diagramsDone = transpileDiagrams(markup);
+	  return transpileDiags(diagramsDone.markup, diagramsDone.model);
 	}
 
 	exports['default'] = function (markup) {
@@ -521,8 +555,8 @@ var labcoat =
 
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
-	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g;
-	var rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
+	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g,
+	    rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
@@ -599,8 +633,8 @@ var labcoat =
 
 	var _citeFormat2 = _interopRequireDefault(_citeFormat);
 
-	var rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/;
-	var rCitation = /<citation\s([^>]+?)\s?\/>/g;
+	var rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/,
+	    rCitation = /<citation\s([^>]+?)\s?\/>/g;
 
 	function duckType(source) {
 	  if (!source.type) source.type = 'book';
@@ -680,7 +714,9 @@ var labcoat =
 	 */
 	function getStyle(markup) {
 	  var style = markup.match(rBib).shift().replace(rBib, '$1') || 'apa';
-	  return registry.get('styles', style);
+	  var theStyle = registry.get('styles', style);
+	  if (theStyle) return theStyle;
+	  return registry.get('styles', 'apa');
 	}
 
 	/**
@@ -692,9 +728,9 @@ var labcoat =
 	function transpile(markup) {
 	  var matches = markup.match(rCitation);
 	  if (!matches) return markup;
-	  var bib = getBibData(markup);
-	  var style = getStyle(markup);
-	  var refs = matches.map(function (element) {
+	  var bib = getBibData(markup),
+	      style = getStyle(markup),
+	      refs = matches.map(function (element) {
 	    var id = element.replace(rCitation, '$1');
 	    var source = bib[id] || { id: id };
 	    markup = markup.replace(element, inText(source, style));
