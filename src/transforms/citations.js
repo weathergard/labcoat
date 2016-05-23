@@ -64,7 +64,7 @@ function getBibData(markup) {
         .replace(/,\s*}/g, '}') // <-- Remove bad trailing commas.
     )
     if (!bib) return output
-    bib.split(/}\s*,\s*{/g).forEach((record) => {
+    bib.split(/}[^{]*{/g).forEach((record) => {
       if (!/^\s*{/.test(record)) record = '{' + record
       if (!/}\s*$/.test(record)) record += '}'
       try {

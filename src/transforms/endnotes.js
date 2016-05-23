@@ -42,7 +42,15 @@ function transpile(markup) {
       let num = numbering(index + 1)
       return `<li><a id="endnote-${num}" href="#intext-note-${num}">${note}</a></li>`
     })
-  let footer = `<section class="endnotes"><ol class="endnotes-list">${li.join('')}</ol></section>`
+  let footer = (`
+    <section class="endnotes">
+      <ol
+        class="endnotes-list ${numbering.class || ''}"
+        style="${numbering.style|| ''}">
+          ${li.join('')}
+      </ol>
+    </section>
+  `)
   markup = markup.replace(rEndNotes, footer)
   return markup
 }
