@@ -137,7 +137,23 @@ var labcoat =
 
 	transpiler.style(_stylesApa2['default']);
 	transpiler.style(_stylesMla2['default']);
-	exports['default'] = transpiler;
+	exports['default'] = transpiler
+
+	/**
+	 * Transpiles body.innerHTML if not in node.js.
+	 * @function
+	 * @return {undefined}
+	 */
+	;
+	(function () {
+	  if (typeof module !== 'undefined' && module.exports) return;
+	  document.addEventListener('DOMContentLoaded', function () {
+	    var transpiled = transpiler(document.body.innerHTML);
+	    if (transpiled !== document.body.innerHTML) {
+	      document.body.innerHTML = transpiled;
+	    }
+	  });
+	})();
 	module.exports = exports['default'];
 
 /***/ },
@@ -211,7 +227,7 @@ var labcoat =
 
 	var bookChapter = '' + '^AUTHOR. (YEAR). CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), ' + '(EDITION+ed.) . LOCATION: PUBLISHER . pp.+PAGENUMBERS.';
 
-	var anthology = '' + '^EDITOR. (YEAR). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER . ' + 'PAGECOUNT+pgs.';
+	var anthology = '' + '^EDITOR (Ed.). (YEAR). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER . ' + 'PAGECOUNT+pgs.';
 
 	var journal = '' + '^AUTHOR. (YEAR). "TITLE". JOURNAL. VOLUME\(ISSUE). PAGENUMBERS.';
 
@@ -280,7 +296,7 @@ var labcoat =
 
 	var bookChapter = '' + '^AUTHOR. CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), ' + '(EDITION+ed.) . LOCATION: PUBLISHER, YEAR . PAGENUMBERS.';
 
-	var anthology = '' + '^EDITOR. <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . ' + 'PAGENUMBERS.';
+	var anthology = '' + '^EDITOR (Ed.). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . ' + 'PAGENUMBERS.';
 
 	var journal = '' + '^AUTHOR. "TITLE." <i>JOURNAL</i>. VOLUME\.ISSUE (YEAR) : PAGENUMBERS.';
 
@@ -350,8 +366,7 @@ var labcoat =
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var rMain = /<main[\s\S]*?<\/main\s*?>/,
-	    rTranspiled = /<main data-transpiled/;
+	var rTranspiled = /labcoat-transpiled/;
 
 	/**
 	 * Finds the first <main> element in the markup and returns it.
@@ -362,11 +377,7 @@ var labcoat =
 
 	exports["default"] = function (markup) {
 	  if (rTranspiled.test(markup)) return null;
-	  try {
-	    return markup.match(rMain)[0];
-	  } catch (err) {
-	    return null;
-	  }
+	  return markup;
 	};
 
 	module.exports = exports["default"];
@@ -504,7 +515,7 @@ var labcoat =
 	});
 	var key = ['', 'c', 'cc', 'ccc', 'cd', 'd', 'dc', 'dcc', 'dccc', 'cm', '', 'x', 'xx', 'xxx', 'xl', 'l', 'lx', 'lxx', 'lxxx', 'xc', '', 'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix'];
 
-	exports['default'] = function (num) {
+	function romanNumbering(num) {
 	  if (typeof num !== 'number') return '';
 	  var digits = num.toString().split('');
 	  var roman = '';
@@ -513,8 +524,12 @@ var labcoat =
 	    roman = (key[+digits.pop() + i * 10] || '') + roman;
 	  }
 	  return Array(+digits.join('') + 1).join('m') + roman;
-	};
+	}
 
+	romanNumbering['class'] = 'roman-numbering';
+	romanNumbering.style = 'list-style:lower-roman;';
+
+	exports['default'] = romanNumbering;
 	module.exports = exports['default'];
 
 /***/ },
@@ -528,11 +543,15 @@ var labcoat =
 	});
 	var alphabet = ['-', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-	exports['default'] = function (int) {
+	function latinNumbering(int) {
 	  if (typeof int !== 'number') return;
 	  return alphabet[int % 26];
-	};
+	}
 
+	latinNumbering['class'] = 'latin-numbering';
+	latinNumbering.style = 'list-style:lower-latin;';
+
+	exports['default'] = latinNumbering;
 	module.exports = exports['default'];
 
 /***/ },
@@ -596,7 +615,7 @@ var labcoat =
 	    var num = numbering(index + 1);
 	    return '<li><a id="endnote-' + num + '" href="#intext-note-' + num + '">' + note + '</a></li>';
 	  });
-	  var footer = '<section class="endnotes"><ol class="endnotes-list">' + li.join('') + '</ol></section>';
+	  var footer = '\n    <section class="endnotes">\n      <ol\n        class="endnotes-list ' + (numbering['class'] || '') + '"\n        style="' + (numbering.style || '') + '">\n          ' + li.join('') + '\n      </ol>\n    </section>\n  ';
 	  markup = markup.replace(rEndNotes, footer);
 	  return markup;
 	}
@@ -687,7 +706,7 @@ var labcoat =
 	    .replace(/,\s*}/g, '}') // <-- Remove bad trailing commas.
 	    ;
 	    if (!bib) return output;
-	    bib.split(/}\s*,\s*{/g).forEach(function (record) {
+	    bib.split(/}[^{]*{/g).forEach(function (record) {
 	      if (!/^\s*{/.test(record)) record = '{' + record;
 	      if (!/}\s*$/.test(record)) record += '}';
 	      try {
@@ -999,10 +1018,9 @@ var labcoat =
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var rMain = /<main/g;
 
 	exports['default'] = function (markup) {
-	  return markup.replace(rMain, '<main data-transpiled');
+	  return markup += '<!--labcoat-transpiled-->';
 	};
 
 	module.exports = exports['default'];
