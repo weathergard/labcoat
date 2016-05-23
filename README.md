@@ -18,69 +18,60 @@ Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms on
 ## Install it.
 `npm install labcoat`
 
-## Start with &lt;main>
-Labcoat takes the standard HTML5 `<main>` element as its domain. That is, only material within an `<main>` will be transpiled from labcoat markup to HTML. In the unlikely event that transpilation fails, examine the helpful comment(s) left by the transpiler in the output HTML, just before the closing `</main>` tag.
-
 ## &lt;endnote> and &lt;endnotes />
 Use the `<endnote>` element to get reciprocally-linked end notes. Use the companion self-closing `<endnotes />` element to indicate where you want the notes to appear in the transpiled HTML.
 
 ```html
-<main>
-  <p>Body text.<endnote>a note</endnote></p>
-  <endnotes />
-</main>
+<p>Body text.<endnote>a note</endnote></p>
+<endnotes />
 ```
 #### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
 
 ```html
-<main>
-  <p>Body text.<sup><a id="intext-note-1" href="#endnote-1">1</a></sup></p>
-  <section id="endnotes">
-    <ol class="endnotes-list">
-      <li id="endnote-1"><a href="#intext-note-1">a note</a></li>
-    </ol>
-  </section>
-</main>
+<p>Body text.<sup><a id="intext-note-1" href="#endnote-1">1</a></sup></p>
+<section id="endnotes">
+  <ol class="endnotes-list">
+    <li id="endnote-1"><a href="#intext-note-1">a note</a></li>
+  </ol>
+</section>
 ```
 
 #### Numbering style
 Default numbering style is plain integers; provide either a `latin` or `roman` attribute, as follows: `<endnotes latin />`. Then, set the `list-style` CSS property on `ol.endnotes-list` to match.
 
 ## &lt;citation /> and &lt;bibliography />
-The `<citation>` element and the companion `<bibliography>` element allow the creation of linked in-text citations and a full-length, alphabetized bibliography section, using an store of bibliographic data.
+The `<citation>` element and the companion `<bibliography>` element allow the creation of linked in-text citations and a full-length, alphabetized bibliography section.
 
 ```html
-<main>
-  <p>Body text (<citation chomsky93 />).</p>
-  <bibliography>
-    [
-      {
-        "id":         'chomsky93',
-        "firstname":  'Noam',
-        "lastname":   'Chomsky',
-        "year":       1993,
-        "title":      'The Minimalist Program',
-        "publisher":  'MIT Press'
-      }
-    ]
-  </bibliography>
-</main>
+<p>Body text (<citation chomsky93 />).</p>
+<bibliography>
+
+  { id:         'chomsky93',
+    firstname:  'Noam',
+    lastname:   'Chomsky',
+    year:       1993,
+    title:      'The Minimalist Program',
+    publisher:  'MIT Press' }
+
+  { &hellip; another source }
+
+</bibliography>
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
 
 ```html
-<main>
-  <p>Body text (<cite><a href="#chomsky93">Chomsky 1993</a></cite>).</p>
-  <section id="bibliography">
-    <ol class="bibliography-list">
-      <li id="chomsky93">
-        Chomsky, Noam. (1993). The Minimalist Program. MIT Press.
-      </li>
-    </ol>
-  </section>
-</main>
+<p>Body text (<cite><a href="#chomsky93">Chomsky 1993</a></cite>).</p>
+<section id="bibliography">
+  <ol class="bibliography-list">
+    <li id="chomsky93">
+      Chomsky, Noam. (1993). The Minimalist Program. MIT Press.
+    </li>
+  </ol>
+</section>
 ```
+
+The bibliography data format is JSON minus some of the annoying strictness of JSON (i.e., a superset of JSON). There's no need to enclose property names in quotes unless they contain symbols. There's no need to represent multiple sources as elements of an array. But strict JSON is fine, too.
 
 ### MLA & APA citation styles
 Labcoat includes an implementation of both APA and MLA citation standards for the following types of resources:
@@ -153,28 +144,24 @@ And use it in your HTML:
 Labcoat uses `<diagram>` and `<diagcaption>` elements to create organized `<figure>` and `<figcaption>` elements; these will be automatically labeled, numbered, and ID'ed. Use the self-closing `<diag />` element to create in-text references to your diagrams, as shown here:
 
 ```html
-<main>
-  <diagram taj-mahal>
-    <img src="taj-mahal.jpg">
-    <diagcaption>the caption</diagcaption>
-  </diagram>
-  <p>And here we see <diag taj-mahal />.</p>
-</main>
+<diagram taj-mahal>
+  <img src="taj-mahal.jpg">
+  <diagcaption>the caption</diagcaption>
+</diagram>
+<p>And here we see <diag taj-mahal />.</p>
 ```
 
 #### &nbsp;&nbsp;&nbsp;&nbsp;&darr;&darr;
 
 ```html
-<main>
-  <figure class="diagram" id="figure-1" title="taj-mahal">
-    <img src="taj-mahal.jpg">
-    <figcaption>
-      <span class="figure-label">Figure 1</span> the caption
-    </figcpation>
-  </figure>
-  <p>And here we see <a class="figure-reference" href="#figure-1">Figure 1<a>.</p>
-</main>
+<figure class="diagram" id="figure-1" title="taj-mahal">
+  <img src="taj-mahal.jpg">
+  <figcaption>
+    <span class="figure-label">Figure 1</span> the caption
+  </figcpation>
+</figure>
+<p>And here we see <a class="figure-reference" href="#figure-1">Figure 1<a>.</p>
 ```
 
 #### Numbering style options
-The default numbering style is plain integers. You may specify otherwise by providing either a `latin-diagrams` or `roman-diagrams` attribute to the enclosing `<main>` element, as follows: `<main latin-diagrams>`.
+The default numbering style is plain integers. You may specify otherwise by providing either a `latin-diagrams` or `roman-diagrams` attribute to the enclosing `<body>` element, as follows: `<body latin-diagrams>`.
