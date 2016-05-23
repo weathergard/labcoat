@@ -19,7 +19,8 @@ function transpiler (markup) {
   let content = body(markup)
   if (!content) return markup
   return (
-    markup.replace(content,
+    markup.replace(
+      content,
       idempotentiate(
         diagrams(
           citations(
@@ -65,3 +66,18 @@ transpiler.style = function (style) {
 transpiler.style(apa)
 transpiler.style(mla)
 export default transpiler
+
+/**
+ * Transpiles body.innerHTML if not in node.js.
+ * @function
+ * @return {undefined}
+ */
+;(function () {
+  if (typeof module !== 'undefined' && module.exports) return
+  document.addEventListener('DOMContentLoaded', function () {
+    let transpiled = transpiler(document.body.innerHTML)
+    if (transpiled !== document.body.innerHTML) {
+      document.body.innerHTML = transpiled
+    }
+  })
+}())
