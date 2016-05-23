@@ -4,7 +4,12 @@ const alphabet = [
   's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ]
 
-export default function (int) {
+function latinNumbering(int) {
   if (typeof int !== 'number') return
   return alphabet[int % 26]
 }
+
+latinNumbering.class = 'latin-numbering'
+latinNumbering.style = 'list-style:lower-latin;'
+
+export default latinNumbering

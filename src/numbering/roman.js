@@ -4,7 +4,7 @@ const key = [
   '','i','ii','iii','iv','v','vi','vii','viii','ix'
 ]
 
-export default function (num) {
+function romanNumbering(num) {
   if (typeof num !== 'number') return ''
   let digits = num.toString().split('')
   let roman = ''
@@ -14,3 +14,8 @@ export default function (num) {
   }
   return Array(+digits.join('') + 1).join('m') + roman
 }
+
+romanNumbering.class = 'roman-numbering'
+romanNumbering.style = 'list-style:lower-roman;'
+
+export default romanNumbering
