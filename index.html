@@ -41,10 +41,8 @@
 </diagram>
 
 <p>Refer to figure <diag fsa/>.</p>
-
 <p>Make an end note.<endnote>Notes are linked.</endnote></p>
-
-<p>Cite a source (<citation chomsky57/>).</p>
+<p>Cite a source (<citation chmsk57/>) or two (<citation hp10/>, <citation lasnik00/>).</p>
 
 <h4>Notes</h4>
 <endnotes/>
@@ -52,13 +50,26 @@
 <h4>References</h4>
 <bibliography>
 
-  { id: "chomsky57",
-    type: "book",
-    author: "Chomsky, Noam",
-    year: "1957",
-    title: "Syntactic Structures",
-    publisher: "Mouton",
-    location: "New York" }
+{ id:        "chmsk57",
+  author:    "Chomsky, Noam",
+  year:      "1957",
+  title:     "Syntactic Structures",
+  publisher: "Mouton",
+  location:  "New York" }
+
+{ id:        "lasnik00",
+  author:    "Lasnik, Howard",
+  year:      "2000",
+  title:     "Syntactic Structures Revisited",
+  publisher: "MIT Press",
+  location:  "Cambridge, MA" }
+
+{ id:        "hp10",
+  type:      "anthology",
+  editor:    "Hornstein, Norbert and Polinsky, Maria",
+  year:      "2010",
+  title:     "Movement Theory of Control",
+  publisher: "John Benjamins" }
 
 </bibliography></textarea>
 <!-- ======================================================================= -->
@@ -75,8 +86,8 @@
       <div class="feature">
         <h3>Auto-numbering</h3>
         <p>
-          Figures and notes are automatically numbered. You can choose digits,
-          roman, or latin styles.
+          Figures and notes are automatically numbered. Choose from digits,
+          roman, or latin numbering styles.
         </p>
         <code>
           &lt;endotes latin/>
@@ -93,19 +104,19 @@
       <hr>
       <div class="feature">
         <h3>Easy references</h3>
-        <p>Use the simple tag ID feature and you can forget maintaining page
-          anchors from text to figures.
+        <p>Use the simple tag ID feature and stop maintaining page
+          anchor links from body text to element ID attributes.
         </p>
         <code>
-          &lt;diag map-usa/>
+          &lt;diag mygraph/>
         </code>
       </div>
       <div class="feature">
-        <h3>Citation styles</h3>
-        <p>Use MLA or APA styles out of the box, or create a custom style that
-          suits the conventions in your discipline.</p>
+        <h3>MLA &amp; APA Styles</h3>
+        <p>Use MLA or APA styles out of the box, or easily create custom styles
+          that suit the conventions in your discipline.</p>
         <code>
-          ^AUTHOR (YEAR). &lt;i>TITLE&lt;/i>. PUBLISHER.
+          &lt;bibliography mla>
         </code>
       </div>
     </div>
@@ -114,17 +125,18 @@
   <section id="basic-guide" class="white">
     <div class="container">
       <h2>Transpile on the server or client.</h2>
+      <h3>In the browser:</h3>
       <p>
-        It&#8217;s best to transpile on the server if you can, but the js file
-        is small (&approx;5.5KB zipped) and runs fast. Even budget mobiles
-        can be expected to perform pretty well.
+        The file is small (5k gzipped) and executes extremely fast. Put this
+        before the closing body tag, and you're done:
       </p>
-      <h3>In node.js:</h3>
+<pre>
+&lt;script src="/js/labcoat.min.js">&lt;/script>
+</pre>
+<h3>In node.js:</h3>
 <pre>
 npm install labcoat --save
 </pre>
-
-      <p>Then:</p>
 <pre>
 var http = require('http')
 var labcoat = require('labcoat')
@@ -134,34 +146,19 @@ http.createServer(function (req, res) {
 }).listen(3000)
 </pre>
 
-      <h3>In the browser:</h3>
-<pre>
-  &vellip;
-  &lt;script src="/js/labcoat.min.js">&lt;/script>
-  &lt;script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.innerHTML = labcoat(document.body.innerHTML)
-    })
-  &lt;/script>
-&lt;/body>
-</pre>
     </div>
   </section>
-
   <section id="footer">
     <span class="copy-left">&copy;</span> 2016. All material is released under
     the <a href="LICENSE.txt">GNU AGPLv3 License</a>.
   </section>
-
-<script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.slim.min.js"></script>
-<script src="https://rawgithub.com/weathergard/labcoat/master/dist/labcoat.min.js" type="text/javascript"></script>
-<script>
-  ;(function () {
-    $('#output')[0].innerHTML = labcoat('<main>' + ($('.editor').val()) + '</main>')
-    $('.editor').on('keyup', function () {
-      $('#output')[0].innerHTML = labcoat('<main>' + $(this).val() + '</main>')
-    })
-  }())
-</script>
+  <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.slim.min.js"></script>
+  <script src="../labcoat/dist/labcoat.js" type="text/javascript"></script>
+  <script>
+    var ouputEl = $('#output')[0], $editor = $('.editor')
+    function update() {ouputEl.innerHTML = labcoat($editor.val())}
+    update()
+    $editor.on('keyup', update)
+  </script>
 </body>
 </html>
