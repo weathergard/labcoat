@@ -9,7 +9,7 @@ let bookChapter = ''+
   '(EDITION+ed.) . LOCATION: PUBLISHER, YEAR . PAGENUMBERS.'
 
 let anthology = ''+
-  '^EDITOR. <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . '+
+  '^EDITOR (Ed.). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . '+
   'PAGENUMBERS.'
 
 let journal = ''+
