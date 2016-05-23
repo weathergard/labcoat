@@ -1,5 +1,4 @@
-let rMain = /<main[\s\S]*?<\/main\s*?>/
-  , rTranspiled = /<main data-transpiled/
+let rTranspiled = /labcoat-transpiled/
 
 /**
  * Finds the first <main> element in the markup and returns it.
@@ -9,9 +8,5 @@ let rMain = /<main[\s\S]*?<\/main\s*?>/
  */
 export default function (markup) {
   if (rTranspiled.test(markup)) return null
-  try {
-    return markup.match(rMain)[0]
-  } catch (err) {
-    return null
-  }
+  return markup
 }
