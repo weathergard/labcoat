@@ -2,11 +2,10 @@
 Enhance HTML with scholarly bibliographic and annotation features.
 
 ## Use it anywhere.
-Labcoat is a *fast,* idempotent, side-effect-free, pure function with no dependencies. Its output is valid HTML5. You can use it:
+Labcoat is a *fast,* idempotent, side-effect-free, pure function. Its output is valid HTML5. You can use it:
 
 1. in Node.js: `res.end(labcoat(html))`
 1. in the browser: `document.body.innerHTML = labcoat(document.body.innerHTML)`
-1. on the command line: `labcoat file.html` (Coming soon.)
 
 ## Prefatory comment on performance
 Labcoat doesn't parse HTML, find, and then manipulate elements. It transforms one markup string into another, ignoring all but a narrowly specified set of labcoat elements (of which, more in due course). The remaining material is a subregular cousin of HTML, parsing of which is virtually instant.
