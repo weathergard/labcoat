@@ -1,15 +1,9 @@
-const alphabet = [
-  '-', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-  'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-  's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-]
+const alphabet = ('-abcdefghijklmnopqrstuvwxyz').split('')
 
-function latinNumbering(int) {
-  if (typeof int !== 'number') return
-  return alphabet[int % 26]
+function latinNumbering (int) {
+  return typeof int === 'number' ? alphabet[int % 26] : undefined
 }
 
 latinNumbering.class = 'latin-numbering'
 latinNumbering.style = 'list-style:lower-latin;'
-
 export default latinNumbering

@@ -1,10 +1,7 @@
 const INVALID_TYPE = 'There is no registry pool of the specified type.'
 const INVALID_NAME = 'You must provide a name to register a value.'
 const INVALID_VALUE = 'You must register a value.'
-
-let reg = {
-  styles: {}
-}
+const reg = {styles: {}}
 
 export function set(type, name, value) {
   if (!type || !reg[type]) throw new Error(INVALID_TYPE)

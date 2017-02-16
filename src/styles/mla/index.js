@@ -1,8 +1,8 @@
 import * as full from './full'
 
 export default {
+  full,
   name: 'mla',
-  full: full,
-  inText: '~AUTHOR|~EDITOR|TITLE PAGES',
-  order: 'alphabetical'
+  order: 'alphabetical',
+  inText: '~AUTHOR|~EDITOR|TITLE PAGES'
 }

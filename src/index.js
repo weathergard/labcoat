@@ -10,7 +10,6 @@ import idempotentiate from './transforms/idempotentiate'
 
 /**
  * Transpiles input markup to HTML.
- * @function
  * @param {String} markup
  * @return {String}
  */
@@ -18,39 +17,26 @@ function transpiler (markup) {
   if (!markup) return markup
   let content = body(markup)
   if (typeof content !== 'string' || !content) return markup
-  return (
-    markup.replace(
-      content,
-      idempotentiate(
-        diagrams(
-          citations(
-            endnotes(
-              content.replace(/\s+/g, ' ')
-            )
-          )
-        )
-      )
-    )
+  return markup.replace(
+    content,
+    idempotentiate(diagrams(citations(endnotes(content.replace(/\s+/g, ' ')))))
   )
 }
 
 /**
  * Registers a citation style.
- * @function
  * @param {String} name
  * @param {Object} style
- * @return {}
+ * @return {undefined}
  */
-transpiler.style = function (style) {
+transpiler.style = style => {
   if (!style) return
   if (!style.name) throw new Error('Styles must be registered with a name.')
   if (style.extends) {
-    let extended = registry.get('styles', style.extends)
+    const extended = registry.get('styles', style.extends)
     if (!extended) throw new Error(style.extends + ' does not exist.')
     delete extended.name
-    Object.keys(style.full).forEach(function (type) {
-      extended[type] = style.full[type]
-    })
+    Object.keys(style.full).forEach(type => extended[type] = style.full[type])
     if (style.inText) extended.inText = style.inText
     if (style.order) extended.order = orders[style.order]
     registry.set('styles', style.name, extended)
@@ -69,13 +55,12 @@ export default transpiler
 
 /**
  * Transpiles body.innerHTML if not in node.js.
- * @function
  * @return {undefined}
  */
-;(function () {
+;(_=> {
   if (typeof module !== 'undefined' && module.exports) return
   document.addEventListener('DOMContentLoaded', function () {
-    let transpiled = transpiler(document.body.innerHTML)
+    const transpiled = transpiler(document.body.innerHTML)
     if (transpiled !== document.body.innerHTML) {
       document.body.innerHTML = transpiled
     }

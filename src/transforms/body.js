@@ -1,12 +1,8 @@
-let rTranspiled = /labcoat-transpiled/
+const rTranspiled = /labcoat-transpiled/
 
 /**
  * Finds the first <main> element in the markup and returns it.
- * @function
  * @param {String} markup
  * @return {String|Null}
  */
-export default function (markup) {
-  if (rTranspiled.test(markup)) return null
-  return markup
-}
+export default markup => rTranspiled.test(markup) ? null : markup

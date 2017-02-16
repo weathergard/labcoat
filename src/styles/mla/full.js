@@ -1,43 +1,41 @@
-/** This file contains cite formats for all major source materials, in MLA-style. */
-
-let book = ''+
+/** This file contains cite formats for major source materials in MLA-style. */
+const book = (
   '^AUTHOR. <i>TITLE</i> (TRANSLATOR,+Trans.), (EDITION+ed.) . '+
   'EDITOR+(Ed(s).). LOCATION: PUBLISHER, YEAR. MEDIUM.'
-
-let bookChapter = ''+
+)
+const bookChapter = (
   '^AUTHOR. CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), '+
   '(EDITION+ed.) . LOCATION: PUBLISHER, YEAR . PAGENUMBERS.'
-
-let anthology = ''+
+)
+const anthology = (
   '^EDITOR (Ed.). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . '+
   'PAGENUMBERS.'
-
-let journal = ''+
+)
+const journal = (
   '^AUTHOR. "TITLE." <i>JOURNAL</i>. VOLUME\.ISSUE (YEAR) : PAGENUMBERS.'
-
-let conference = ''+
+)
+const conference = (
   '^AUTHOR. (YEAR). TITLE. In+EDITOR, <i>PROCEEDINGS</i>. Paper+presented+at'+
   '+CONFERENCE ,+CONFLOCATION (PAGENUMBERS). LOCATION: PUBLISHER.'
-
-let webpage = ''+
+)
+const webpage = (
   '^AUTHOR. "TITLE." <i>WEBSITE</i>, DATE YEAR. MEDIUM. RETRIEVED &lt;URL&gt;.'
-
-let newspaper = ''+
+)
+const newspaper = (
   '^AUTHOR. "TITLE." <i>NEWSPAPER</i>, YEAR, DATE : PAGENUMBERS. MEDIUM.'
-
-let magazine = ''+
+)
+const magazine = (
   '^AUTHOR. "TITLE." <i>MAGAZINE</i>, YEAR, DATE : PAGENUMBERS. MEDIUM.'
-
-let lecture = ''+
-  '^AUTHOR. TITLE [FILEFORMAT]. DATE YEAR . &lt;URL&gt;.'
-
-let film = ''+
+)
+const lecture = '^AUTHOR. TITLE [FILEFORMAT]. DATE YEAR . &lt;URL&gt;.'
+const film = (
   '^PRODUCER+(Producer),+&amp; ^DIRECTOR+(Director). (YEAR). TITLE [Motion+'+
   'Picture]. LOCATION: STUDIO.'
-
-let broadcast = ''+
+)
+const broadcast = (
   '^AUTHOR,+&amp; DIRECTOR+(Director). (YEAR). PROGRAMTITLE [Series '+
   'episode]. In+PRODUCER+(Executive+Producer), SERIESTITLE. LOCATION: CHANNEL.'
+)
 
 export {
   book,

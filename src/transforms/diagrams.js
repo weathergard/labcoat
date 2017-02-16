@@ -1,14 +1,13 @@
 import romanNumeral from '../numbering/roman'
 import latinNumeral from '../numbering/latin'
 
-let rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g
-  , rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/
-  , rDiag = /<diag\s*?([^>]*?)\s*?\/>/g
-  , rDiagId = /<diag\s*?([^>]*?)\s*?\/>/
+const rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g
+const rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/
+const rDiag = /<diag\s*?([^>]*?)\s*?\/>/g
+const rDiagId = /<diag\s*?([^>]*?)\s*?\/>/
 
 /**
  * Determines what kind of numbering is in use.
- * @function
  * @param {String} markup
  * @return {Function}
  */
@@ -18,27 +17,21 @@ function numerals(markup) {
   return function (int) {return int.toString()}
 }
 
-/**
- *
- * @param {} diagram
- * @param {} num
- * @function
- * @return {Function}
- */
 function transpileCaption(diagram, num) {
   let diagcaption = diagram.match(rCaption)
   if (!diagcaption) return ''
   diagcaption = diagcaption[0].replace(rCaption, '$1')
-  return '<figcaption><span class="figure-label">Figure&nbsp;' + num +
-    '</span>&nbsp;' + diagcaption + '</figcaption>'
+  return (
+    `<figcaption>
+      <span class="figure-label">Figure&nbsp;${num}</span>&nbsp;${diagcaption}
+    </figcaption>`
+  )
 }
 
 function getDiagramNumberById(diagrams, id) {
   let number = '?'
-  diagrams.forEach((diagram) => {
-    if (diagram.id === id) {
-      number = diagram.number.toString()
-    }
+  diagrams.forEach(diagram => {
+    if (diagram.id === id) number = diagram.number.toString()
   })
   return number
 }
@@ -69,25 +62,26 @@ function transpileDiags(markup, diagrams) {
       markup: diag
     }
   })
-  diags.forEach((diag) => {
-    let number = getDiagramNumberById(diagrams, diag.id)
-      , intext = '<a class="figure-reference" href="#figure-' + number + '">' + number + '</a>'
+  diags.forEach(diag => {
+    const number = getDiagramNumberById(diagrams, diag.id)
+    const intext = (
+      `<a class="figure-reference" href="#figure-${number}">${number}</a>`
+    )
     markup = markup.replace(diag.markup, intext)
   })
   return markup
 }
 
-/**
- * Finds and transpiles the <diagram>, <diagcaption>, and <diag /> elements.
- * @function
- * @param {String} markup - a document or fragment
- * @return {String}
- */
 function transpile(markup) {
-  let diagramsDone = transpileDiagrams(markup)
+  const diagramsDone = transpileDiagrams(markup)
   return transpileDiags(diagramsDone.markup, diagramsDone.model)
 }
 
+/**
+ * Finds and transpiles the <diagram>, <diagcaption>, and <diag /> elements.
+ * @param {String} markup
+ * @return {String}
+ */
 export default function (markup) {
   try {
     return transpile(markup)

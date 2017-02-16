@@ -6,7 +6,7 @@ const key = [
 
 function romanNumbering(num) {
   if (typeof num !== 'number') return ''
-  let digits = num.toString().split('')
+  const digits = num.toString().split('')
   let roman = ''
   let i = 3
   while (i--) {
@@ -17,5 +17,4 @@ function romanNumbering(num) {
 
 romanNumbering.class = 'roman-numbering'
 romanNumbering.style = 'list-style:lower-roman;'
-
 export default romanNumbering

@@ -93,7 +93,6 @@ var labcoat =
 
 	/**
 	 * Transpiles input markup to HTML.
-	 * @function
 	 * @param {String} markup
 	 * @return {String}
 	 */
@@ -106,10 +105,9 @@ var labcoat =
 
 	/**
 	 * Registers a citation style.
-	 * @function
 	 * @param {String} name
 	 * @param {Object} style
-	 * @return {}
+	 * @return {undefined}
 	 */
 	transpiler.style = function (style) {
 	  if (!style) return;
@@ -120,7 +118,7 @@ var labcoat =
 	      if (!extended) throw new Error(style['extends'] + ' does not exist.');
 	      delete extended.name;
 	      Object.keys(style.full).forEach(function (type) {
-	        extended[type] = style.full[type];
+	        return extended[type] = style.full[type];
 	      });
 	      if (style.inText) extended.inText = style.inText;
 	      if (style.order) extended.order = orders[style.order];
@@ -141,11 +139,10 @@ var labcoat =
 
 	/**
 	 * Transpiles body.innerHTML if not in node.js.
-	 * @function
 	 * @return {undefined}
 	 */
 	;
-	(function () {
+	(function (_) {
 	  if (typeof module !== 'undefined' && module.exports) return;
 	  document.addEventListener('DOMContentLoaded', function () {
 	    var transpiled = transpiler(document.body.innerHTML);
@@ -170,10 +167,7 @@ var labcoat =
 	var INVALID_TYPE = 'There is no registry pool of the specified type.';
 	var INVALID_NAME = 'You must provide a name to register a value.';
 	var INVALID_VALUE = 'You must register a value.';
-
-	var reg = {
-	  styles: {}
-	};
+	var reg = { styles: {} };
 
 	function set(type, name, value) {
 	  if (!type || !reg[type]) throw new Error(INVALID_TYPE);
@@ -205,10 +199,10 @@ var labcoat =
 	var full = _interopRequireWildcard(_full);
 
 	exports['default'] = {
-	  name: 'apa',
 	  full: full,
-	  inText: '~AUTHOR|~EDITOR|TITLE YEAR',
-	  order: 'alphabetical'
+	  name: 'apa',
+	  order: 'alphabetical',
+	  inText: '~AUTHOR|~EDITOR|TITLE YEAR'
 	};
 	module.exports = exports['default'];
 
@@ -216,34 +210,23 @@ var labcoat =
 /* 3 */
 /***/ function(module, exports) {
 
-	/** This file contains cite formats for all major source materials, in APA-style. */
-
+	/** This file contains cite formats for major source materials in APA-style. */
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var book = '' + '^AUTHOR. (YEAR). <i>TITLE</i> (TRANSLATOR,+Trans.), (EDITION+ed.) . ' + 'EDITOR+(Ed(s).). LOCATION: PUBLISHER . PAGECOUNT+pgs.';
-
-	var bookChapter = '' + '^AUTHOR. (YEAR). CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), ' + '(EDITION+ed.) . LOCATION: PUBLISHER . pp.+PAGENUMBERS.';
-
-	var anthology = '' + '^EDITOR (Ed.). (YEAR). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER . ' + 'PAGECOUNT+pgs.';
-
-	var journal = '' + '^AUTHOR. (YEAR). "TITLE". JOURNAL. VOLUME\(ISSUE). PAGENUMBERS.';
-
-	var conference = '' + '^AUTHOR. (YEAR). TITLE. In+EDITOR, <i>PROCEEDINGS</i>. Paper+presented+at' + '+CONFERENCE ,+CONFLOCATION (PAGENUMBERS). LOCATION: PUBLISHER.';
-
-	var webpage = '' + '^AUTHOR. (DATE). TITLE. <i>WEBSITE</i>. Retrieved:+RETRIEVED. From+URL.';
-
-	var newspaper = '' + '^AUTHOR. (YEAR, DATE). TITLE. <i>NEWSPAPER</i>, pp.+PAGENUMBERS. ' + 'Retrieved+from+URL.';
-
-	var magazine = '' + '^AUTHOR. (YEAR, DATE). TITLE. <i>MAGAZINE</i>, VOLUME\(ISSUE), PAGENUMBERS.';
-
-	var lecture = '' + '^AUTHOR. (YEAR). TITLE [FILEFORMAT]. Retrieved+from+URL';
-
-	var film = '' + '^PRODUCER+(Producer),+&amp; ^DIRECTOR+(Director). (YEAR). TITLE [Motion+' + 'Picture]. LOCATION: STUDIO.';
-
-	var broadcast = '' + '^AUTHOR,+&amp; DIRECTOR+(Director). (YEAR). PROGRAMTITLE [Series ' + 'episode]. In+PRODUCER+(Executive+Producer), SERIESTITLE. LOCATION: CHANNEL.';
+	var book = '^AUTHOR. (YEAR). <i>TITLE</i> (TRANSLATOR,+Trans.), (EDITION+ed.) . ' + 'EDITOR+(Ed(s).). LOCATION: PUBLISHER . PAGECOUNT+pgs.';
+	var bookChapter = '^AUTHOR. (YEAR). CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), ' + '(EDITION+ed.) . LOCATION: PUBLISHER . pp.+PAGENUMBERS.';
+	var anthology = '^EDITOR (Ed.). (YEAR). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER . ' + 'PAGECOUNT+pgs.';
+	var journal = '^AUTHOR. (YEAR). "TITLE". JOURNAL. VOLUME\(ISSUE). PAGENUMBERS.';
+	var conference = '^AUTHOR. (YEAR). TITLE. In+EDITOR, <i>PROCEEDINGS</i>. Paper+presented+at' + '+CONFERENCE ,+CONFLOCATION (PAGENUMBERS). LOCATION: PUBLISHER.';
+	var webpage = '^AUTHOR. (DATE). TITLE. <i>WEBSITE</i>. Retrieved:+RETRIEVED. From+URL.';
+	var newspaper = '^AUTHOR. (YEAR, DATE). TITLE. <i>NEWSPAPER</i>, pp.+PAGENUMBERS. ' + 'Retrieved+from+URL.';
+	var magazine = '^AUTHOR. (YEAR, DATE). TITLE. <i>MAGAZINE</i>, VOLUME\(ISSUE), PAGENUMBERS.';
+	var lecture = '^AUTHOR. (YEAR). TITLE [FILEFORMAT]. Retrieved+from+URL';
+	var film = '^PRODUCER+(Producer),+&amp; ^DIRECTOR+(Director). (YEAR). TITLE [Motion+' + 'Picture]. LOCATION: STUDIO.';
+	var broadcast = '^AUTHOR,+&amp; DIRECTOR+(Director). (YEAR). PROGRAMTITLE [Series ' + 'episode]. In+PRODUCER+(Executive+Producer), SERIESTITLE. LOCATION: CHANNEL.';
 
 	exports.book = book;
 	exports.bookChapter = bookChapter;
@@ -274,10 +257,10 @@ var labcoat =
 	var full = _interopRequireWildcard(_full);
 
 	exports['default'] = {
-	  name: 'mla',
 	  full: full,
-	  inText: '~AUTHOR|~EDITOR|TITLE PAGES',
-	  order: 'alphabetical'
+	  name: 'mla',
+	  order: 'alphabetical',
+	  inText: '~AUTHOR|~EDITOR|TITLE PAGES'
 	};
 	module.exports = exports['default'];
 
@@ -285,34 +268,23 @@ var labcoat =
 /* 5 */
 /***/ function(module, exports) {
 
-	/** This file contains cite formats for all major source materials, in MLA-style. */
-
+	/** This file contains cite formats for major source materials in MLA-style. */
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var book = '' + '^AUTHOR. <i>TITLE</i> (TRANSLATOR,+Trans.), (EDITION+ed.) . ' + 'EDITOR+(Ed(s).). LOCATION: PUBLISHER, YEAR. MEDIUM.';
-
-	var bookChapter = '' + '^AUTHOR. CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), ' + '(EDITION+ed.) . LOCATION: PUBLISHER, YEAR . PAGENUMBERS.';
-
-	var anthology = '' + '^EDITOR (Ed.). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . ' + 'PAGENUMBERS.';
-
-	var journal = '' + '^AUTHOR. "TITLE." <i>JOURNAL</i>. VOLUME\.ISSUE (YEAR) : PAGENUMBERS.';
-
-	var conference = '' + '^AUTHOR. (YEAR). TITLE. In+EDITOR, <i>PROCEEDINGS</i>. Paper+presented+at' + '+CONFERENCE ,+CONFLOCATION (PAGENUMBERS). LOCATION: PUBLISHER.';
-
-	var webpage = '' + '^AUTHOR. "TITLE." <i>WEBSITE</i>, DATE YEAR. MEDIUM. RETRIEVED &lt;URL&gt;.';
-
-	var newspaper = '' + '^AUTHOR. "TITLE." <i>NEWSPAPER</i>, YEAR, DATE : PAGENUMBERS. MEDIUM.';
-
-	var magazine = '' + '^AUTHOR. "TITLE." <i>MAGAZINE</i>, YEAR, DATE : PAGENUMBERS. MEDIUM.';
-
-	var lecture = '' + '^AUTHOR. TITLE [FILEFORMAT]. DATE YEAR . &lt;URL&gt;.';
-
-	var film = '' + '^PRODUCER+(Producer),+&amp; ^DIRECTOR+(Director). (YEAR). TITLE [Motion+' + 'Picture]. LOCATION: STUDIO.';
-
-	var broadcast = '' + '^AUTHOR,+&amp; DIRECTOR+(Director). (YEAR). PROGRAMTITLE [Series ' + 'episode]. In+PRODUCER+(Executive+Producer), SERIESTITLE. LOCATION: CHANNEL.';
+	var book = '^AUTHOR. <i>TITLE</i> (TRANSLATOR,+Trans.), (EDITION+ed.) . ' + 'EDITOR+(Ed(s).). LOCATION: PUBLISHER, YEAR. MEDIUM.';
+	var bookChapter = '^AUTHOR. CHAPTER. In<i>TITLE</i>, EDITOR, (TRANSLATOR,+Trans.), ' + '(EDITION+ed.) . LOCATION: PUBLISHER, YEAR . PAGENUMBERS.';
+	var anthology = '^EDITOR (Ed.). <i>TITLE</i>, (EDITION+ed.) . LOCATION: PUBLISHER, YEAR . ' + 'PAGENUMBERS.';
+	var journal = '^AUTHOR. "TITLE." <i>JOURNAL</i>. VOLUME\.ISSUE (YEAR) : PAGENUMBERS.';
+	var conference = '^AUTHOR. (YEAR). TITLE. In+EDITOR, <i>PROCEEDINGS</i>. Paper+presented+at' + '+CONFERENCE ,+CONFLOCATION (PAGENUMBERS). LOCATION: PUBLISHER.';
+	var webpage = '^AUTHOR. "TITLE." <i>WEBSITE</i>, DATE YEAR. MEDIUM. RETRIEVED &lt;URL&gt;.';
+	var newspaper = '^AUTHOR. "TITLE." <i>NEWSPAPER</i>, YEAR, DATE : PAGENUMBERS. MEDIUM.';
+	var magazine = '^AUTHOR. "TITLE." <i>MAGAZINE</i>, YEAR, DATE : PAGENUMBERS. MEDIUM.';
+	var lecture = '^AUTHOR. TITLE [FILEFORMAT]. DATE YEAR . &lt;URL&gt;.';
+	var film = '^PRODUCER+(Producer),+&amp; ^DIRECTOR+(Director). (YEAR). TITLE [Motion+' + 'Picture]. LOCATION: STUDIO.';
+	var broadcast = '^AUTHOR,+&amp; DIRECTOR+(Director). (YEAR). PROGRAMTITLE [Series ' + 'episode]. In+PRODUCER+(Executive+Producer), SERIESTITLE. LOCATION: CHANNEL.';
 
 	exports.book = book;
 	exports.bookChapter = bookChapter;
@@ -370,14 +342,12 @@ var labcoat =
 
 	/**
 	 * Finds the first <main> element in the markup and returns it.
-	 * @function
 	 * @param {String} markup
 	 * @return {String|Null}
 	 */
 
 	exports["default"] = function (markup) {
-	  if (rTranspiled.test(markup)) return null;
-	  return markup;
+	  return rTranspiled.test(markup) ? null : markup;
 	};
 
 	module.exports = exports["default"];
@@ -402,14 +372,13 @@ var labcoat =
 
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
-	var rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g,
-	    rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/,
-	    rDiag = /<diag\s*?([^>]*?)\s*?\/>/g,
-	    rDiagId = /<diag\s*?([^>]*?)\s*?\/>/;
+	var rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g;
+	var rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/;
+	var rDiag = /<diag\s*?([^>]*?)\s*?\/>/g;
+	var rDiagId = /<diag\s*?([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
-	 * @function
 	 * @param {String} markup
 	 * @return {Function}
 	 */
@@ -421,26 +390,17 @@ var labcoat =
 	  };
 	}
 
-	/**
-	 *
-	 * @param {} diagram
-	 * @param {} num
-	 * @function
-	 * @return {Function}
-	 */
 	function transpileCaption(diagram, num) {
 	  var diagcaption = diagram.match(rCaption);
 	  if (!diagcaption) return '';
 	  diagcaption = diagcaption[0].replace(rCaption, '$1');
-	  return '<figcaption><span class="figure-label">Figure&nbsp;' + num + '</span>&nbsp;' + diagcaption + '</figcaption>';
+	  return '<figcaption>\n      <span class="figure-label">Figure&nbsp;' + num + '</span>&nbsp;' + diagcaption + '\n    </figcaption>';
 	}
 
 	function getDiagramNumberById(diagrams, id) {
 	  var number = '?';
 	  diagrams.forEach(function (diagram) {
-	    if (diagram.id === id) {
-	      number = diagram.number.toString();
-	    }
+	    if (diagram.id === id) number = diagram.number.toString();
 	  });
 	  return number;
 	}
@@ -474,23 +434,23 @@ var labcoat =
 	    };
 	  });
 	  diags.forEach(function (diag) {
-	    var number = getDiagramNumberById(diagrams, diag.id),
-	        intext = '<a class="figure-reference" href="#figure-' + number + '">' + number + '</a>';
+	    var number = getDiagramNumberById(diagrams, diag.id);
+	    var intext = '<a class="figure-reference" href="#figure-' + number + '">' + number + '</a>';
 	    markup = markup.replace(diag.markup, intext);
 	  });
 	  return markup;
 	}
 
-	/**
-	 * Finds and transpiles the <diagram>, <diagcaption>, and <diag /> elements.
-	 * @function
-	 * @param {String} markup - a document or fragment
-	 * @return {String}
-	 */
 	function transpile(markup) {
 	  var diagramsDone = transpileDiagrams(markup);
 	  return transpileDiags(diagramsDone.markup, diagramsDone.model);
 	}
+
+	/**
+	 * Finds and transpiles the <diagram>, <diagcaption>, and <diag /> elements.
+	 * @param {String} markup
+	 * @return {String}
+	 */
 
 	exports['default'] = function (markup) {
 	  try {
@@ -526,7 +486,6 @@ var labcoat =
 
 	romanNumbering['class'] = 'roman-numbering';
 	romanNumbering.style = 'list-style:lower-roman;';
-
 	exports['default'] = romanNumbering;
 	module.exports = exports['default'];
 
@@ -539,16 +498,14 @@ var labcoat =
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	var alphabet = ['-', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+	var alphabet = '-abcdefghijklmnopqrstuvwxyz'.split('');
 
 	function latinNumbering(int) {
-	  if (typeof int !== 'number') return;
-	  return alphabet[int % 26];
+	  return typeof int === 'number' ? alphabet[int % 26] : undefined;
 	}
 
 	latinNumbering['class'] = 'latin-numbering';
 	latinNumbering.style = 'list-style:lower-latin;';
-
 	exports['default'] = latinNumbering;
 	module.exports = exports['default'];
 
@@ -572,12 +529,11 @@ var labcoat =
 
 	var _numberingLatin2 = _interopRequireDefault(_numberingLatin);
 
-	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g,
-	    rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
+	var rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g;
+	var rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/;
 
 	/**
 	 * Determines what kind of numbering is in use.
-	 * @function
 	 * @param {String} markup
 	 * @return {Function}
 	 */
@@ -595,7 +551,6 @@ var labcoat =
 
 	/**
 	 * Finds and transpiles the <endnote> and <endnotes /> elements.
-	 * @function
 	 * @param {String} markup - a document or fragment
 	 * @return {String}
 	 */
@@ -609,20 +564,19 @@ var labcoat =
 	  });
 	  var li = notes.map(function (note) {
 	    return note.replace(/<\/?endnote\s*>/g, '');
-	  }).map(function (note, index) {
-	    var num = numbering(index + 1);
+	  }).map(function (note, i) {
+	    var num = numbering(i + 1);
 	    return '<li><a id="endnote-' + num + '" href="#intext-note-' + num + '">' + note + '</a></li>';
 	  });
 	  var footer = '\n    <section class="endnotes">\n      <ol\n        class="endnotes-list ' + (numbering['class'] || '') + '"\n        style="' + (numbering.style || '') + '">\n          ' + li.join('') + '\n      </ol>\n    </section>\n  ';
-	  markup = markup.replace(rEndNotes, footer);
-	  return markup;
+	  return markup.replace(rEndNotes, footer);
 	}
 
 	exports['default'] = function (markup) {
 	  try {
 	    return transpile(markup);
 	  } catch (err) {
-	    return markup + '\n<!-- ' + 'Labcoat transpilation failed for <endnote> and <endnotes /> ' + 'elements. ' + '\n' + err.stack + '\n' + ' -->';
+	    return markup + '\n<!-- ' + 'Labcoat transpilation failed for <endnote> and <endnotes /> elements. ' + '\n' + err.stack + '\n' + ' -->';
 	  }
 	};
 
@@ -650,8 +604,8 @@ var labcoat =
 
 	var _citeFormat2 = _interopRequireDefault(_citeFormat);
 
-	var rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/,
-	    rCitation = /<citation\s([^>]+?)\s?\/>/g;
+	var rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/;
+	var rCitation = /<citation\s([^>]+?)\s?\/>/g;
 
 	function duckType(source) {
 	  if (!source.type) source.type = 'book';
@@ -669,7 +623,7 @@ var labcoat =
 
 	function inText(source, style) {
 	  try {
-	    return '' + '<cite class="in-text-citation">' + '<a href="#' + source.id + '">' + (0, _citeFormat2['default'])(source, style.inText) + '</a>' + '</cite>';
+	    return '<cite class="in-text-citation">\n        <a href="#' + source.id + '">' + (0, _citeFormat2['default'])(source, style.inText) + '</a>\n      </cite>';
 	  } catch (err) {
 	    return '\n<!-- Failed to interpolate citation ' + source.id + '. \n' + err.stack + '\n -->\n';
 	  }
@@ -677,13 +631,12 @@ var labcoat =
 
 	/**
 	 * Turns an array into an object (keyed by <array-element>.id).
-	 * @function
 	 * @param {Array} bib
 	 * @return {Object}
 	 */
 	function mapBibData(bib) {
 	  var obj = {};
-	  bib.forEach(function (source, index) {
+	  bib.forEach(function (source) {
 	    if ('id' in source) obj[source.id] = source;
 	  });
 	  return obj;
@@ -691,18 +644,16 @@ var labcoat =
 
 	/**
 	 * Grabs an parses either embedded data or from a file or URL.
-	 * @function
 	 * @param {String} markup
 	 * @return {Object}
 	 */
 	function getBibData(markup) {
-	  var bib = undefined,
-	      output = [];
-
+	  var output = [];
+	  var bib = undefined;
 	  if (rBib.test(markup)) {
 	    bib = markup.match(rBib)[0].replace(rBib, '$2').replace(/(^\s*\[)|(\]\s*$)/g, '').replace(/({|,)\s*([A-z0-9_-]+):/g, '$1"$2":') // <- Add prop name quotes.
-	    .replace(/,\s*}/g, '}') // <-- Remove bad trailing commas.
-	    ;
+	    .replace(/,\s*}/g, '}'); // <-- Remove bad trailing commas.
+
 	    if (!bib) return output;
 	    bib.split(/}[^{]*{/g).forEach(function (record) {
 	      if (!/^\s*{/.test(record)) record = '{' + record;
@@ -710,10 +661,7 @@ var labcoat =
 	      try {
 	        output.push(JSON.parse(record));
 	      } catch (err) {
-	        output.push({
-	          input: record,
-	          err: err
-	        });
+	        output.push({ input: record, err: err });
 	      }
 	    });
 	    output = mapBibData(output);
@@ -724,7 +672,6 @@ var labcoat =
 	/**
 	 * Retrieves the <bibliography> tag attribute to get the citation render
 	 * functions from the registry.
-	 * @function
 	 * @param {String} markup
 	 * @return {Object}
 	 * @note Missing render functions individiually default to basic-style.
@@ -732,34 +679,33 @@ var labcoat =
 	function getStyle(markup) {
 	  var style = markup.match(rBib).shift().replace(rBib, '$1') || 'apa';
 	  var theStyle = registry.get('styles', style);
-	  if (theStyle) return theStyle;
-	  return registry.get('styles', 'apa');
+	  return theStyle || registry.get('styles', 'apa');
 	}
 
 	/**
 	 * Finds and transpiles the <citation> and <bibliography /> elements.
-	 * @function
 	 * @param {String} markup - a document or fragment
 	 * @return {String}
 	 */
 	function transpile(markup) {
 	  var matches = markup.match(rCitation);
 	  if (!matches) return markup;
-	  var bib = getBibData(markup),
-	      style = getStyle(markup),
-	      refs = matches.map(function (element) {
+	  var bib = getBibData(markup);
+	  var style = getStyle(markup);
+	  var refs = matches.map(function (element) {
 	    var id = element.replace(rCitation, '$1');
 	    var source = bib[id] || { id: id };
 	    markup = markup.replace(element, inText(source, style));
 	    return source;
 	  });
-	  refs = refs.filter(function (item, index) {
-	    return refs.indexOf(item) === index;
+	  refs = refs.filter(function (item, i) {
+	    return refs.indexOf(item) === i;
 	  });
-	  var li = refs.sort(style.order).map(function (source) {
+	  refs.sort(style.order);
+	  var li = refs.map(function (source) {
 	    return full(source, style);
 	  });
-	  var bibSection = '<section id="bibliography"><ol class="bibliography-list">' + li.join('') + '</ol></section>';
+	  var bibSection = '<section id="bibliography">\n      <ol class="bibliography-list">' + li.join('') + '</ol>\n    </section>';
 	  return markup.replace(rBib, bibSection);
 	}
 

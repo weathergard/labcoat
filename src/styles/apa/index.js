@@ -1,8 +1,8 @@
 import * as full from './full'
 
 export default {
+  full,
   name: 'apa',
-  full: full,
-  inText: '~AUTHOR|~EDITOR|TITLE YEAR',
-  order: 'alphabetical'
+  order: 'alphabetical',
+  inText: '~AUTHOR|~EDITOR|TITLE YEAR'
 }

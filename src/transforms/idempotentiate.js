@@ -1,3 +1,1 @@
-export default function (markup) {
-  return markup += '<!--labcoat-transpiled-->'
-}
+export default markup => markup += '<!--labcoat-transpiled-->'
