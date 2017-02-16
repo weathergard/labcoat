@@ -44,25 +44,21 @@ function getDiagramNumberById(diagrams, id) {
 }
 
 function transpileDiagrams(markup) {
-  let numbering = numerals(markup || '')
-  let diagrams = markup.match(rDiagram).map(function (diagram, i) {
-    return {
-      markup: diagram,
-      index: i,
-      number: numbering(i + 1),
-      id: diagram.replace(rDiagram, '$1').replace(/\s/g, ''),
-    }
-  })
-  diagrams.forEach((diagram) => {
-    let caption = transpileCaption(diagram.markup, diagram.number)
-      , inner = diagram.markup.replace(rDiagram, '$2').replace(rCaption, caption)
-      , figure = '<figure id="figure-' + diagram.number + '">' + inner + '</figure>'
+  const numbering = numerals(markup || '')
+  let diagrams = markup.match(rDiagram) || []
+  diagrams = diagrams.map((diagram, i) => ({
+    index: i,
+    markup: diagram,
+    number: numbering(i + 1),
+    id: diagram.replace(rDiagram, '$1').replace(/\s/g, '')
+  }))
+  diagrams.forEach(diagram => {
+    const caption = transpileCaption(diagram.markup, diagram.number)
+    const inner = diagram.markup.replace(rDiagram, '$2').replace(rCaption, caption)
+    const figure = '<figure id="figure-' + diagram.number + '">' + inner + '</figure>'
     markup = markup.replace(diagram.markup, figure)
   })
-  return {
-    markup: markup,
-    model: diagrams
-  }
+  return {markup, model: diagrams}
 }
 
 function transpileDiags(markup, diagrams) {

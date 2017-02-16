@@ -17,7 +17,7 @@ import idempotentiate from './transforms/idempotentiate'
 function transpiler (markup) {
   if (!markup) return markup
   let content = body(markup)
-  if (!content) return markup
+  if (typeof content !== 'string' || !content) return markup
   return (
     markup.replace(
       content,

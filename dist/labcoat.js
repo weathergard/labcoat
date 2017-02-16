@@ -100,7 +100,7 @@ var labcoat =
 	function transpiler(markup) {
 	  if (!markup) return markup;
 	  var content = (0, _transformsBody2['default'])(markup);
-	  if (!content) return markup;
+	  if (typeof content !== 'string' || !content) return markup;
 	  return markup.replace(content, (0, _transformsIdempotentiate2['default'])((0, _transformsDiagrams2['default'])((0, _transformsCitations2['default'])((0, _transformsEndnotes2['default'])(content.replace(/\s+/g, ' '))))));
 	}
 
@@ -447,24 +447,22 @@ var labcoat =
 
 	function transpileDiagrams(markup) {
 	  var numbering = numerals(markup || '');
-	  var diagrams = markup.match(rDiagram).map(function (diagram, i) {
+	  var diagrams = markup.match(rDiagram) || [];
+	  diagrams = diagrams.map(function (diagram, i) {
 	    return {
-	      markup: diagram,
 	      index: i,
+	      markup: diagram,
 	      number: numbering(i + 1),
 	      id: diagram.replace(rDiagram, '$1').replace(/\s/g, '')
 	    };
 	  });
 	  diagrams.forEach(function (diagram) {
-	    var caption = transpileCaption(diagram.markup, diagram.number),
-	        inner = diagram.markup.replace(rDiagram, '$2').replace(rCaption, caption),
-	        figure = '<figure id="figure-' + diagram.number + '">' + inner + '</figure>';
+	    var caption = transpileCaption(diagram.markup, diagram.number);
+	    var inner = diagram.markup.replace(rDiagram, '$2').replace(rCaption, caption);
+	    var figure = '<figure id="figure-' + diagram.number + '">' + inner + '</figure>';
 	    markup = markup.replace(diagram.markup, figure);
 	  });
-	  return {
-	    markup: markup,
-	    model: diagrams
-	  };
+	  return { markup: markup, model: diagrams };
 	}
 
 	function transpileDiags(markup, diagrams) {
