@@ -1,5 +1,5 @@
-import assert from 'assert'
-import body from '../transforms/body'
+const assert = require('assert')
+const body = require('../transforms/body')
 
 const HTML = [
   '<main></main>',
@@ -9,7 +9,7 @@ const HTML = [
   '<main data-tricky="<yo>"></main>'
 ]
 
-export default function () {
+module.exports = function () {
   HTML.forEach((markup) => {
     assert.equal(body(markup), markup)
   })

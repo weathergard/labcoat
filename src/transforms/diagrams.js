@@ -1,6 +1,7 @@
-import romanNumeral from '../numbering/roman'
-import latinNumeral from '../numbering/latin'
+'use strict'
 
+const romanNumeral = require('../numbering/roman')
+const latinNumeral = require('../numbering/latin')
 const rDiagram = /<diagram\s*?([^>]*?)\s*?>([\s\S]*?)<\/diagram\s*?>/g
 const rCaption = /<diagcaption\s*?>([\s\S]*?)<\/diagcaption\s*?>/
 const rDiag = /<diag\s*?([^>]*?)\s*?\/>/g
@@ -82,7 +83,7 @@ function transpile(markup) {
  * @param {String} markup
  * @return {String}
  */
-export default function (markup) {
+module.exports = function (markup) {
   try {
     return transpile(markup)
   } catch (err) {

@@ -1,7 +1,9 @@
-import apa from './apa'
-import mla from './mla'
+'use strict'
 
-export default function () {
+const apa = require('./apa')
+const mla = require('./mla')
+
+module.exports = function () {
   apa()
   mla()
 }

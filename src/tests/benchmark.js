@@ -1,9 +1,9 @@
-import fs from 'fs'
-import assert from 'assert'
-import labcoat from '../../build'
+const fs = require('fs')
+const assert = require('assert')
+const labcoat = require('../../build')
 const HTML = fs.readFileSync(__dirname + '/../../benchmark.html', 'utf8')
 
-export default function () {
+module.exports = function () {
   let perf = process.hrtime()
   let output = labcoat(HTML)
   let duration = process.hrtime(perf)

@@ -1,5 +1,5 @@
-import assert from 'assert'
-import endnote from '../transforms/endnotes'
+const assert = require('assert')
+const endnote = require('../transforms/endnotes')
 const HTML = [
   [
     '<endnote></endnote>',
@@ -50,7 +50,7 @@ const HTML = [
   ]
 ]
 
-export default function () {
+module.exports = function () {
   HTML.forEach((pair) => {
     assert.equal(
       endnote(pair[0]).replace(/\s/g, ''),

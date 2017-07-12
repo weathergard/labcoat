@@ -1,1 +1,1 @@
-export default markup => markup += '<!--labcoat-transpiled-->'
+module.exports = markup => markup += '<!--labcoat-transpiled-->'

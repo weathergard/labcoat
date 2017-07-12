@@ -1,5 +1,5 @@
-import assert from 'assert'
-import diagrams from '../transforms/diagrams'
+const assert = require('assert')
+const diagrams = require('../transforms/diagrams')
 
 const GOOD_HTML = [
   [ // No ID
@@ -48,7 +48,7 @@ const GOOD_HTML = [
   ]
 ]
 
-export default function () {
+module.exports = function () {
   GOOD_HTML.forEach((pair) => {
     assert.equal(
       diagrams(pair[0]).replace(/\s/g, ''),

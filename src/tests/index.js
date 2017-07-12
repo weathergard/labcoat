@@ -1,9 +1,9 @@
-import bodyTests from './body'
-import endnoteTests from './endnotes'
-import citationTests from './citations'
-import styleTests from '../styles/tests'
-import diagramTests from './diagrams'
-import benchmark from './benchmark'
+const bodyTests = require('./body')
+const endnoteTests = require('./endnotes')
+const citationTests = require('./citations')
+const styleTests = require('../styles/tests')
+const diagramTests = require('./diagrams')
+const benchmark = require('./benchmark')
 
 process.stdout.write('\n')
 bodyTests()

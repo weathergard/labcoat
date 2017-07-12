@@ -1,5 +1,5 @@
-import assert from 'assert'
-import citations from '../transforms/citations'
+const assert = require('assert')
+const citations = require('../transforms/citations')
 
 const GOOD_HTML = [
   [ // Data undefined (should still transpile).
@@ -22,7 +22,7 @@ const GOOD_HTML = [
   ]
 ]
 
-export default function () {
+module.exports = function () {
   GOOD_HTML.forEach((pair) => {
     assert.equal(
       citations(pair[0]).replace(/\s/g, ''),

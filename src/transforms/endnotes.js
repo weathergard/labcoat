@@ -1,6 +1,7 @@
-import romanNumeral from '../numbering/roman'
-import latinNumeral from '../numbering/latin'
+'use strict'
 
+const romanNumeral = require('../numbering/roman')
+const latinNumeral = require('../numbering/latin')
 const rEndNote = /<endnote[^>]*?>[\s\S]*?<\/endnote\s*?>/g
 const rEndNotes = /<endnotes\s?([^>]*?)\s*?\/>/
 
@@ -50,7 +51,7 @@ function transpile(markup) {
   return markup.replace(rEndNotes, footer)
 }
 
-export default function (markup) {
+module.exports = function (markup) {
   try {
     return transpile(markup)
   } catch (err) {

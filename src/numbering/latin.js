@@ -1,3 +1,5 @@
+'use strict'
+
 const alphabet = ('-abcdefghijklmnopqrstuvwxyz').split('')
 
 function latinNumbering (int) {
@@ -6,4 +8,4 @@ function latinNumbering (int) {
 
 latinNumbering.class = 'latin-numbering'
 latinNumbering.style = 'list-style:lower-latin;'
-export default latinNumbering
+module.exports = latinNumbering

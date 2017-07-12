@@ -1,6 +1,7 @@
-import * as registry from '../registry'
-import citeFormat from 'cite-format'
+'use strict'
 
+const registry = require('../registry')
+const citeFormat = require('cite-format')
 const rBib = /<bibliography\s*([^>]*?)\s*>([\s\S]*?)<\/bibliography\s?>/
 const rCitation = /<citation\s([^>]+?)\s?\/>/g
 
@@ -19,9 +20,7 @@ function full(source, style) {
 function inText(source, style) {
   try {
     return (
-      `<cite class="in-text-citation">
-        <a href="#${source.id}">${citeFormat(source, style.inText)}</a>
-      </cite>`
+     `<cite class="in-text-citation"><a href="#${source.id}">${citeFormat(source, style.inText)}</a></cite>`
     )
   } catch (err) {
     return `\n<!-- Failed to interpolate citation ${source.id}. \n${err.stack}\n -->\n`
@@ -110,7 +109,7 @@ function transpile(markup) {
   return markup.replace(rBib, bibSection)
 }
 
-export default function (markup) {
+module.exports = function (markup) {
   try {
     return transpile(markup)
   } catch (err) {

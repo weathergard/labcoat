@@ -1,7 +1,7 @@
-import * as full from './full'
+'use strict'
 
-export default {
-  full,
+module.exports = {
+  full: require('./full'),
   name: 'apa',
   order: 'alphabetical',
   inText: '~AUTHOR|~EDITOR|TITLE YEAR'

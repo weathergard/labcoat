@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Sorts citation objects by lastname, authors, or title.
  * @param {Object} a
@@ -5,7 +7,7 @@
  * @note The default order is order of appearance in the text. Here, we change
  * that to alphabetical order.
  */
-export function alphabetical (a, b) {
+exports.alphabetical = function(a, b) {
   if (a.author) a = a.author[0].toLowerCase()
   else if (a.title) a = a.title[0].toLowerCase()
   if (b.author) b = b.author[0].toLowerCase()
@@ -15,6 +17,4 @@ export function alphabetical (a, b) {
   return 1
 }
 
-export function appearance () {
-  return 0
-}
+exports.appearance = _=>0

@@ -1,12 +1,14 @@
-import * as registry from './registry'
-import apa from './styles/apa'
-import mla from './styles/mla'
-import * as orders from './styles/orders'
-import body from './transforms/body'
-import diagrams from './transforms/diagrams'
-import endnotes from './transforms/endnotes'
-import citations from './transforms/citations'
-import idempotentiate from './transforms/idempotentiate'
+'use strict'
+
+const registry = require('./registry')
+const apa = require('./styles/apa')
+const mla = require('./styles/mla')
+const orders = require('./styles/orders')
+const body = require('./transforms/body')
+const diagrams = require('./transforms/diagrams')
+const endnotes = require('./transforms/endnotes')
+const citations = require('./transforms/citations')
+const idempotentiate = require('./transforms/idempotentiate')
 
 /**
  * Transpiles input markup to HTML.
@@ -51,7 +53,7 @@ transpiler.style = style => {
 
 transpiler.style(apa)
 transpiler.style(mla)
-export default transpiler
+module.exports = transpiler
 
 /**
  * Transpiles body.innerHTML if not in node.js.
@@ -65,4 +67,4 @@ export default transpiler
       document.body.innerHTML = transpiled
     }
   })
-}())
+})()

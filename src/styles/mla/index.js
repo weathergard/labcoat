@@ -1,7 +1,7 @@
-import * as full from './full'
+'use strict'
 
-export default {
-  full,
+module.exports = {
+  full: require('./full'),
   name: 'mla',
   order: 'alphabetical',
   inText: '~AUTHOR|~EDITOR|TITLE PAGES'

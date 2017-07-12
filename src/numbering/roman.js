@@ -1,3 +1,5 @@
+'use strict'
+
 const key = [
   '','c','cc','ccc','cd','d','dc','dcc','dccc','cm',
   '','x','xx','xxx','xl','l','lx','lxx','lxxx','xc',
@@ -17,4 +19,4 @@ function romanNumbering(num) {
 
 romanNumbering.class = 'roman-numbering'
 romanNumbering.style = 'list-style:lower-roman;'
-export default romanNumbering
+module.exports = romanNumbering

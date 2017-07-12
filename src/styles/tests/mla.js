@@ -1,9 +1,7 @@
-import assert from 'assert'
-import citations from '../../transforms/citations'
+const assert = require('assert')
+const citations = require('../../transforms/citations')
 
-const DOE84_1 = JSON.stringify({
-  id: "doe84"
-})
+const DOE84_1 = JSON.stringify({id: "doe84"})
 
 const DOE84_2 = JSON.stringify({
   id: "doe84",
@@ -135,7 +133,7 @@ const HTML = [
   }
 ]
 
-export default function () {
+module.exports = function () {
   console.log('\n  MLA citations tests:')
   HTML.forEach((pair, index) => {
     let input = (
